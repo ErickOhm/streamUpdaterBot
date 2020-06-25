@@ -1,0 +1,33 @@
+{
+  "name": "streamupdater",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/erickmack/streamUpdaterBot.git"
+  },
+  "keywords": [
+    "discord",
+    "twitch"
+  ],
+  "author": "Erickmack",
+  "license": "SEE LICENSE IN LICENSE",
+  "bugs": {
+    "url": "https://github.com/erickmack/streamUpdaterBot/issues"
+  },
+  "homepage": "https://github.com/erickmack/streamUpdaterBot#readme",
+  "dependencies": {
+    "discord.js": "^12.2.0",
+    "dotenv": "^8.2.0",
+    "unirest": "^0.6.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.3.1",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.21.2"
+  }
+}
