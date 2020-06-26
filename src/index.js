@@ -1,11 +1,19 @@
 const fs = require('fs');
 const Discord = require('discord.js');
+const winston = require('winston')
 require('dotenv').config();
 
 const prefix = process.env.PREFIX;
 
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
+const logger = winston.createLogger({
+  transports: [
+    new winston.transports.Console(),
+    new winston.transports.File({ filename: 'log' }),
+  ],
+  format: winston.format.printf(log => `[${log.level.toUpperCase()}] - ${log.message}`),
+});
 
 const commandFiles = fs.readdirSync('./src/commands').filter(file => file.endsWith('.js'));
 
@@ -15,19 +23,29 @@ for (const file of commandFiles) {
 }
 
 client.once('ready', () => {
-  console.log('Ready!');
+  logger.log('info', 'The bot is online')
 });
 
 client.on('message', (message) => {
   if (!message.content.startsWith(prefix) || message.author.bot) return;
 
   const args = message.content.slice(prefix.length).split(/ +/);
-  const command = args.shift().toLowerCase();
+  const commandName = args.shift().toLowerCase();
 
-  if (!client.commands.has(command)) return;
+  if (!client.commands.has(commandName)) return;
+  if (command.args && !args.length) {
+    let reply = `You didn't provide any arguments, ${message.author}!`;
+    if (command.usage) {
+      reply += `\nThe proper usage would be: \`${prefix}${command.name} ${command.usage}\``;
+    }
+
+    return message.channel.send(reply);
+  }
+
+  const command = client.commands.get(commandName);
 
   try {
-    client.commands.get(command).execute(message, args);
+    command.execute(message, args);
   } catch (error) {
     console.error(error);
     message.reply('there was an error trying to execute that command!');

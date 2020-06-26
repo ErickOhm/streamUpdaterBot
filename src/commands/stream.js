@@ -4,7 +4,8 @@ const Discord = require('discord.js')
 module.exports = {
   name: 'stream',
   description: 'get most viewed stream from <category>',
-  usage: '!stream <category>',
+  args: true,
+  usage: '<category>',
   async execute(message, args) {
     if (!args.length) {
       return message.channel.send('Missing arguments: Game')
