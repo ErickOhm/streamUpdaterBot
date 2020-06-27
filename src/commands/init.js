@@ -1,4 +1,3 @@
-const winston = require('winston')
 module.exports = {
   name: 'init',
   description: 'Initialize the bot with your preferences (do this command in the channel you want the bot to send updates)',
@@ -20,7 +19,7 @@ module.exports = {
             console.log(err)
           }).then(() => db.close())
       } else {
-        message.channel.send('You already initialized this server!')
+        message.channel.send('You already initialized this server!');
       }
     })
   },
