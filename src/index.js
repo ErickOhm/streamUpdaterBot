@@ -31,6 +31,7 @@ client.on('message', (message) => {
 
   const args = message.content.slice(prefix.length).split(/ +/);
   const commandName = args.shift().toLowerCase();
+  const command = client.commands.get(commandName);
 
   if (!client.commands.has(commandName)) return;
   if (command.args && !args.length) {
@@ -42,7 +43,6 @@ client.on('message', (message) => {
     return message.channel.send(reply);
   }
 
-  const command = client.commands.get(commandName);
 
   try {
     command.execute(message, args);
