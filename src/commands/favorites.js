@@ -47,7 +47,6 @@ module.exports = {
         for (let i = 0; i < res[0].Favorites.length; i++) {
           let userID = res[0].Favorites[i][username]
           if (userID) {
-            console.log(userID)
             collection.update({ ServerID: message.guild.id }, { $pull: { 'Favorites': { [username]: userID } } })
             message.channel.send(`Removed **${username}** from your Favorites`)
           }

@@ -38,14 +38,13 @@ module.exports = {
             imagePromise.then(function (img) {
               const testEmbed = new Discord.MessageEmbed()
                 .setColor('#00b894')
-                .setTitle(`${data.user_name} is Live!`)
+                .setTitle(`${data.title}`)
                 .setURL(`https://twitch.tv/${data.user_name}`)
                 .setAuthor(data.user_name, img, `https://twitch.tv/${data.user_name}`)
-                .setDescription(data.title)
                 .setThumbnail(img)
-                .addFields({ name: 'Playing', value: 'Tetris', inline: true }, { name: 'Lang', value: data.language, inline: true }, { name: 'Viewers', value: data.viewer_count })
+                .addFields({ name: 'Playing', value: `${name}`, inline: true }, { name: 'Lang', value: data.language, inline: true }, { name: 'Viewers', value: data.viewer_count })
                 .setImage(thumbnail)
-              message.channel.send(testEmbed)
+              message.channel.send(`${data.user_name} is live!`, testEmbed)
             })
           });
       })

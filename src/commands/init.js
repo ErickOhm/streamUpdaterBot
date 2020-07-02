@@ -14,7 +14,7 @@ module.exports = {
       let Game = args[0]
       if (!res.length) {
         let gameID = await getGameID(String(Game))
-        collection.insert({ ServerID: String(message.guild.id), Category: gameID, Cooldown: '5', ChannelID: String(message.channel.id), Show: 'top', Favorites: [], Banned: [] })
+        collection.insert({ ServerID: String(message.guild.id), Category: gameID, Cooldown: '5', LastUpdate: new Date(), ChannelID: String(message.channel.id), Show: 'top', Favorites: [], Banned: [] })
           .then((docs) => {
             message.channel.send('You initialized the bot successfully and set the game to ' + Game)
           }).catch((err) => {
