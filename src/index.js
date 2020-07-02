@@ -1,6 +1,9 @@
 const fs = require('fs');
 const Discord = require('discord.js');
 const winston = require('winston')
+
+const categoryUpdate = require('./streamUpdate/categoryUpdate')
+
 require('dotenv').config();
 
 const prefix = process.env.PREFIX;
@@ -23,10 +26,18 @@ for (const file of commandFiles) {
 }
 
 client.once('ready', () => {
-  logger.log('info', 'The bot is online')
+  //logger.log('info', 'The bot is online')
 });
 
+client.on('ready', () => {
+  setInterval(function () {
+    console.log('supposed to be sent')
+    categoryUpdate(client);
+  }, 10000)
+})
+
 client.on('message', (message) => {
+
   if (!message.content.startsWith(prefix) || message.author.bot) return;
 
   const args = message.content.slice(prefix.length).split(/ +/);
@@ -46,7 +57,7 @@ client.on('message', (message) => {
 
 
   try {
-    command.execute(message, args);
+    command.execute(message, args, client);
   } catch (error) {
     console.error(error);
     message.reply('there was an error trying to execute that command!');
