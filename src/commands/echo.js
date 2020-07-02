@@ -4,6 +4,6 @@ module.exports = {
   usage: '<text>',
   args: true,
   execute(message, args) {
-    message.channel.send(args);
+    message.channel.send(args.join(' '));
   },
 };
