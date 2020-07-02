@@ -5,7 +5,7 @@ module.exports = {
   description: 'Initialize the bot with your preferences (do this command in the channel you want the bot to send updates)',
   args: true,
   execute(message, args) {
-    const db = require('monk')(process.env.URI)
+    const db = require('monk')(process.env.MONGODB_URI)
     db.then(() => {
       console.log('connected')
     })

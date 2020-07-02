@@ -12,7 +12,7 @@ module.exports = {
     }
     if (args[0].toLowerCase() === 'add') {
       // ADD USER TO DATABASE
-      const db = require('monk')(process.env.URI)
+      const db = require('monk')(process.env.MONGODB_URI)
       db.then(() => console.log('connected'))
       const collection = db.get('document')
       collection.find({ ServerID: String(message.guild.id) }).then(async (res) => {
@@ -32,7 +32,7 @@ module.exports = {
       }).then(() => db.close())
     } else if (args[0].toLowerCase() === 'del' || args[0] === 'delete') {
       // REMOVE USER FROM DATABASE
-      const db = require('monk')(process.env.URI)
+      const db = require('monk')(process.env.MONGODB_URI)
       db.then(() => console.log('connected'))
       const collection = db.get('document')
       collection.find({ ServerID: String(message.guild.id) }).then(async (res) => {

@@ -1,4 +1,4 @@
-const db = require('monk')(process.env.URI)
+const db = require('monk')(process.env.MONGODB_URI)
 const collection = db.get('document')
 
 module.exports = {
