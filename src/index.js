@@ -26,14 +26,14 @@ for (const file of commandFiles) {
 }
 
 client.once('ready', () => {
-  //logger.log('info', 'The bot is online')
+  console.log('info', 'The bot is online')
 });
 
 client.on('ready', () => {
   setInterval(function () {
     console.log('supposed to be sent')
     categoryUpdate(client);
-  }, 10000)
+  }, 40000)
 })
 
 client.on('message', (message) => {
