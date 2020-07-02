@@ -1,7 +1,5 @@
 const fs = require('fs');
 const Discord = require('discord.js');
-const winston = require('winston')
-
 const categoryUpdate = require('./streamUpdate/categoryUpdate')
 
 require('dotenv').config();
@@ -10,13 +8,6 @@ const prefix = process.env.PREFIX;
 
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
-const logger = winston.createLogger({
-  transports: [
-    new winston.transports.Console(),
-    new winston.transports.File({ filename: 'log' }),
-  ],
-  format: winston.format.printf(log => `[${log.level.toUpperCase()}] - ${log.message}`),
-});
 
 const commandFiles = fs.readdirSync('./src/commands').filter(file => file.endsWith('.js'));
 
