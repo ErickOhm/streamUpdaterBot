@@ -22,9 +22,8 @@ client.once('ready', () => {
 
 client.on('ready', () => {
   setInterval(function () {
-    console.log('supposed to be sent')
     categoryUpdate(client);
-  }, 40000)
+  }, 2 * 60 * 1000)
 })
 
 client.on('message', (message) => {
