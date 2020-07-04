@@ -15,9 +15,9 @@ module.exports = {
 
     const helpEmbed = new Discord.MessageEmbed()
       .setColor('#0984e3')
-      .setTitle('Commands')
+      .setTitle('Help')
       .setDescription('Here\'s a list of all my commands:')
-      .addFields({ name: 'Command name', value: `${commands.map((command) => command.name).join('\n')}` }, { name: 'More info:', value: `\nYou can send \`${prefix}help [command name]\` to get info on a specific command!` })
+      .addFields({ name: 'Command name', value: `${commands.map((command) => command.name).join(', ')}` }, { name: 'More info:', value: `\nYou can send \`${prefix}help [command name]\` to get info on a specific command!` })
 
 
     if (!args.length) {
