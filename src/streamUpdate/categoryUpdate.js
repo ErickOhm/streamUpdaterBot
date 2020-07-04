@@ -15,9 +15,8 @@ module.exports = function (client) {
       let currentTime = ((new Date()).getTime() / 1000);
       if (currentTime >= cooldownTime) {
         let streams = await getStreams(category);
-        if (!streams.data.length) return
+        if (!streams.data.length) continue
         let data = streams.data[0]
-
         let channelID = res[i].ChannelID
         client.channels.fetch(channelID).then((channel) => {
           channel.messages.fetch({ limit: 6 }).then(messages => {
