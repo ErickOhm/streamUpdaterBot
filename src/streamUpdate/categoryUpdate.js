@@ -56,7 +56,7 @@ async function sendStreamer(data, client, channelID, collection, ID) {
   let gameName = await getGameName(gameID)
   imagePromise.then(function (img) {
     const streamerEmbed = new Discord.MessageEmbed()
-      .setColor('#00b894')
+      .setColor('#8e44ad')
       .setTitle(`${data.title}`)
       .setURL(`https://twitch.tv/${data.user_name}`)
       .setAuthor(data.user_name, img, `https://twitch.tv/${data.user_name}`)

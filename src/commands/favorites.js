@@ -25,11 +25,11 @@ module.exports = {
           }
         }
         let userID = await getUserID(username)
-        collection.update({ ServerID: message.guild.id }, { $push: { 'Favorites': { [username]: userID } } })
+        collection.update({ ServerID: message.guild.id }, { $push: { 'Favorites': { username: username, ID: userID, wasOnline: false } } })
         let user = await getUsers(userID)
         // CONFIRMATION MESSAGE
         const confirmation = new Discord.MessageEmbed()
-          .setColor('#ffeaa7')
+          .setColor('#f1c40f')
           .setTitle(`Added ${user.data[0].login}`)
           .setURL(twitch + user.data[0].display_name)
           .setAuthor(user.data[0].display_name, user.data[0]['profile_image_url'])
@@ -43,15 +43,12 @@ module.exports = {
       const db = require('monk')(process.env.MONGODB_URI)
       db.then(() => console.log('connected'))
       const collection = db.get('document')
-      collection.find({ ServerID: String(message.guild.id) }).then(async (res) => {
-        for (let i = 0; i < res[0].Favorites.length; i++) {
-          let userID = res[0].Favorites[i][username]
-          if (userID) {
-            collection.update({ ServerID: message.guild.id }, { $pull: { 'Favorites': { [username]: userID } } })
-            message.channel.send(`Removed **${username}** from your Favorites`)
-          }
-        }
-      }).then(() => { db.close() })
+      collection.update({ ServerID: message.guild.id }, { $pull: { 'Favorites': { username: username } } }).then(() => {
+        const delConfirmation = new Discord.MessageEmbed()
+          .setColor('#e74c3c')
+          .setTitle(`Removed ${username} from your favorites`)
+        message.channel.send(delConfirmation)
+      })
     }
   },
 };
