@@ -8,7 +8,7 @@
     <img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" />
   </a>
   <a href="https://github.com/erickmack/streamUpdaterBot/blob/master/LICENSE" target="_blank">
-    <img alt="License: SEE LICENSE IN LICENSE" src="https://img.shields.io/github/license/erickmack/streamupdater" />
+    <img alt="License: GNU GPLv3" src="https://img.shields.io/github/license/erickmack/streamupdater" />
   </a>
   <a href="https://twitter.com/eriickmack" target="_blank">
     <img alt="Twitter: eriickmack" src="https://img.shields.io/twitter/follow/eriickmack.svg?style=social" />
@@ -49,7 +49,7 @@ Give a ⭐️ if this project helped you!
 ## 📝 License
 
 Copyright © 2020 [Erickmack](https://github.com/erickmack).<br />
-This project is [SEE LICENSE IN LICENSE](https://github.com/erickmack/streamUpdaterBot/blob/master/LICENSE) licensed.
+This project is [GNU GPLv3](https://github.com/erickmack/streamUpdaterBot/blob/master/LICENSE) licensed.
 
 ***
 _This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
