@@ -1,4 +1,5 @@
 const getGameID = require('../TwitchFetch/getGameID')
+const Discord = require('discord.js');
 
 module.exports = {
   name: 'init',
@@ -33,8 +34,8 @@ module.exports = {
         const errorMessage = new Discord.MessageEmbed()
           .setColor('#e74c3c')
           .setTitle('Server has already been initialized!')
-        message.channel.send(errorMessage);
         db.close()
+        return message.channel.send(errorMessage);
       }
     })
   },
