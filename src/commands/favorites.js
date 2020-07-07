@@ -30,6 +30,12 @@ module.exports = {
           return message.channel.send(usernameWarning)
         }
         let userID = await getUserID(username)
+        if (!userID.length) {
+          const errorMessage = new Discord.MessageEmbed()
+            .setColor('#e74c3c')
+            .setTitle('This user does not exist!')
+          return message.channel.send(errorMessage)
+        }
         collection.update({ ServerID: message.guild.id }, { $push: { 'Favorites': { username: username, ID: userID, wasOnline: false } } })
         let user = await getUsers(userID)
         // CONFIRMATION MESSAGE

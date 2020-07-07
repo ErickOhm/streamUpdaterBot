@@ -13,7 +13,7 @@ module.exports = {
     let serverID = message.guild.id
     let game = args[0]
     let gameID = await getGameID(String(game))
-    if (gameID) {
+    if (gameID.length) {
       collection.update({ ServerID: serverID }, { $set: { Category: gameID } }).then(() => {
         const successMessage = new Discord.MessageEmbed()
           .setColor('#2ecc71')
@@ -22,6 +22,11 @@ module.exports = {
         message.channel.send(successMessage)
         db.close()
       })
+    } else {
+      const errorMessage = new Discord.MessageEmbed()
+        .setColor('#e74c3c')
+        .setTitle('this category doesn\'t exist')
+      return message.channel.send(errorMessage)
     }
   },
 };

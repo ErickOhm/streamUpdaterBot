@@ -9,7 +9,12 @@ module.exports = function (user) {
     .then(function (res) {
       if (res.error) throw new Error(res.error);
       let parsed = JSON.parse(res.raw_body)
-      return parsed['data'][0]['id']
+      if (parsed.data.length) {
+        return parsed['data'][0]['id']
+      } else {
+        let noData = []
+        return noData
+      }
     });
   return req
 }

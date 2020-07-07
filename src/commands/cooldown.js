@@ -20,8 +20,10 @@ module.exports = {
         db.close()
       })
     } else {
-      message.channel.send('Time needs to be a number and minimum 5')
-      return
+      const errorMessage = new Discord.MessageEmbed()
+        .setColor('#e74c3c')
+        .setTitle('Time needs to be a number and minimum 5')
+      return message.channel.send(errorMessage)
     }
   },
 };

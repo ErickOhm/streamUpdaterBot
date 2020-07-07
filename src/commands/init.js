@@ -11,6 +11,12 @@ module.exports = {
       let Game = args[0]
       if (!res.length) {
         let gameID = await getGameID(String(Game))
+        if (!gameID.length) {
+          const errorMessage = new Discord.MessageEmbed()
+            .setColor('#e74c3c')
+            .setTitle('This category doesn\'t exist')
+          return message.channel.send(errorMessage)
+        }
         collection.insert({ ServerID: String(message.guild.id), Category: gameID, Cooldown: '5', LastUpdate: new Date(), ChannelID: String(message.channel.id), Show: 'top', Favorites: [], Banned: [] })
           .then((docs) => {
             message.channel.send('You initialized the bot successfully and set the game to ' + Game)
