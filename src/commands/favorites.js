@@ -20,9 +20,11 @@ module.exports = {
       const collection = db.get('document')
       collection.find({ ServerID: String(message.guild.id) }).then(async (res) => {
         for (let i = 0; i < res[0].Favorites.length; i++) {
-          if (username in res[0].Favorites[i]) {
-            return message.channel.send('This user already exists')
-          }
+          let existingNames = []
+          existingNames.push(Favorites[i]['ID'])
+        }
+        if (username in existingNames) {
+          return message.channel.send('This user already exists')
         }
         let userID = await getUserID(username)
         collection.update({ ServerID: message.guild.id }, { $push: { 'Favorites': { username: username, ID: userID, wasOnline: false } } })
