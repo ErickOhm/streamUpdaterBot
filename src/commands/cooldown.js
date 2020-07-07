@@ -3,9 +3,10 @@ const collection = db.get('document')
 const Discord = require('discord.js');
 
 module.exports = {
-  name: 'cooldown',
+  name: 'cooldownUpdate',
   description: 'Set the time between stream category updates',
-  usage: '<time in minutes>',
+  usage: '!cooldown <time in minutes>',
+  aliases: ['cooldown'],
   args: true,
   execute(message, args) {
     let time = parseInt(args[0])

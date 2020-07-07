@@ -4,6 +4,8 @@ module.exports = {
   name: 'init',
   description: 'Initialize the bot with your preferences (do this command in the channel you want the bot to send updates)',
   args: true,
+  aliases: ['start'],
+  usage: '!init <category you want updates from>',
   execute(message, args) {
     const db = require('monk')(process.env.MONGODB_URI)
     const collection = db.get('document')

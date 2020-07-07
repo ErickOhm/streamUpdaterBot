@@ -6,13 +6,13 @@ const db = require('monk')(process.env.MONGODB_URI)
 const collection = db.get('document')
 
 module.exports = {
-  name: 'fav',
-  aliases: ['favorites', 'fav'],
-  description: 'Add your favorite streamers to know whenever they go online',
-  usage: '<add/del/list> <username>',
+  name: 'favorites',
+  aliases: ['fav'],
+  description: '<Add> your favorite streamers to know whenever they go online, <Remove> users from your favorites, <List> all the people you have added',
+  usage: '!favorites <add/remove> <username> | !favorites list',
   args: true,
   async execute(message, args) {
-    if (args[0] === 'list') {
+    if (args[0].toLowerCase === 'list') {
       collection.find({ ServerID: String(message.guild.id) }).then((res) => {
         let favoriteNames = []
         let existingFavorites = res[0].Favorites
@@ -67,7 +67,7 @@ module.exports = {
         message.channel.send(confirmation)
         // -- END OF CONFIRMATION MESSAGE
       }).then(() => db.close())
-    } else if (args[0].toLowerCase() === 'del' || args[0] === 'delete') {
+    } else if (args[0].toLowerCase() === 'del' || args[0] === 'remove') {
       let username = args[1].toLowerCase()
       // REMOVE USER FROM DATABASE
       collection.update({ ServerID: message.guild.id }, { $pull: { 'Favorites': { username: username } } }).then(() => {

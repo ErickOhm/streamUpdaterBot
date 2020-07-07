@@ -5,9 +5,10 @@ const Discord = require('discord.js');
 const getGameID = require('../TwitchFetch/getGameID')
 
 module.exports = {
-  name: 'category',
+  name: 'categoryUpdate',
   description: 'Change the category for your updates',
-  usage: '<new category>',
+  usage: '!category <new category>',
+  aliases: ['category'],
   args: true,
   async execute(message, args) {
     let serverID = message.guild.id

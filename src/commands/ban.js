@@ -3,7 +3,7 @@ const Discord = require('discord.js')
 module.exports = {
   name: 'ban',
   description: 'Ban people from showing up in the bot updates',
-  usage: '<add/del> <username>',
+  usage: '!ban <add/remove> <username>',
   args: true,
   async execute(message, args) {
     let username = args[1].toLowerCase()
@@ -35,7 +35,7 @@ module.exports = {
           message.channel.send(confirmation)
         })
       }).then(() => db.close())
-    } else if (args[0].toLowerCase() === 'del' || args[0] === 'delete') {
+    } else if (args[0].toLowerCase() === 'del' || args[0] === 'remove') {
       // REMOVE USER FROM DATABASE
       const db = require('monk')(process.env.MONGODB_URI)
       const collection = db.get('document')

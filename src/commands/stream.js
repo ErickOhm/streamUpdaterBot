@@ -5,7 +5,7 @@ module.exports = {
   name: 'stream',
   description: 'get most viewed stream from <category>',
   args: true,
-  usage: '<category>',
+  usage: '!stream <category>',
   async execute(message, args) {
     if (!args.length) {
       return message.channel.send('Missing arguments: Game')
