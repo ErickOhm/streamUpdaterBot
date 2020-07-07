@@ -17,10 +17,16 @@ module.exports = {
       collection.find({ ServerID: String(message.guild.id) }).then(async (res) => {
         for (let i = 0; i < res[0].Banned.length; i++) {
           if (username in res[0].Banned[i]) {
-            return message.channel.send('This user already exists')
+            return message.channel.send('This user is already banned')
           }
         }
         let userID = await getUserID(username)
+        if (!userID.length) {
+          const errorMessage = new Discord.MessageEmbed()
+            .setColor('#e74c3c')
+            .setTitle('This user doesn\'t exist')
+          return message.channel.send(errorMessage)
+        }
         collection.update({ ServerID: message.guild.id }, { $push: { 'Banned': { [username]: userID } } }).then(() => {
           const confirmation = new Discord.MessageEmbed()
             .setColor('#d63031')

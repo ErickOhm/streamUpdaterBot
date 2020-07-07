@@ -25,7 +25,7 @@ module.exports = {
     } else {
       const errorMessage = new Discord.MessageEmbed()
         .setColor('#e74c3c')
-        .setTitle('this category doesn\'t exist')
+        .setTitle('This category doesn\'t exist')
       return message.channel.send(errorMessage)
     }
   },
