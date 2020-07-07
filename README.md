@@ -8,7 +8,7 @@
     <img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" />
   </a>
   <a href="https://github.com/erickmack/streamUpdaterBot/blob/master/LICENSE" target="_blank">
-    <img alt="License: GNU GPLv3" src="https://img.shields.io/github/license/erickmack/streamupdater" />
+    <img alt="License: GNU GPLv3" src="https://img.shields.io/github/license/erickmack/streamUpdaterBot" />
   </a>
   <a href="https://twitter.com/eriickmack" target="_blank">
     <img alt="Twitter: eriickmack" src="https://img.shields.io/twitter/follow/eriickmack.svg?style=social" />
