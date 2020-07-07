@@ -12,7 +12,7 @@ module.exports = {
   args: true,
   async execute(message, args) {
     let serverID = message.guild.id
-    let game = args[0]
+    let game = args.join(' ')
     let gameID = await getGameID(String(game))
     if (gameID.length) {
       collection.update({ ServerID: serverID }, { $set: { Category: gameID } }).then(() => {

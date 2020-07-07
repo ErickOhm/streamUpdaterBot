@@ -38,9 +38,13 @@ async function sendStreamer(data, client, channelID, collection, ServerID, favor
       .setThumbnail(img)
       .addFields({ name: 'Playing', value: gameName, inline: true }, { name: 'Lang', value: data.language, inline: true }, { name: 'Viewers', value: data.viewer_count })
       .setImage(thumbnail)
-    client.channels.fetch(channelID).then(channel => {
-      channel.send(`${data.user_name} is live!`, streamerEmbed)
-    })
+    try {
+      client.channels.fetch(channelID).then(channel => {
+        channel.send(`${data.user_name} is live!`, streamerEmbed)
+      })
+    } catch (error) {
+      console.error(error)
+    }
   })
   collection.update({ 'ServerID': ServerID, "Favorites.ID": favoriteID }, { $set: { "Favorites.$.wasOnline": true } })
 }

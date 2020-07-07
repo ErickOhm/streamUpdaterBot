@@ -12,7 +12,7 @@ module.exports = function (game) {
         return res.error
       }
       let parsed = JSON.parse(res.raw_body)
-      if (parsed.data) {
+      if (parsed.data.length) {
         let id = parsed['data'][0]['id']
         return id
       } else {

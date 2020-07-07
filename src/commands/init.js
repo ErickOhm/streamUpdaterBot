@@ -11,7 +11,7 @@ module.exports = {
     const db = require('monk')(process.env.MONGODB_URI)
     const collection = db.get('document')
     collection.find({ ServerID: String(message.guild.id) }).then(async (res) => {
-      let Game = args[0]
+      let Game = args.join(' ')
       if (!res.length) {
         let gameID = await getGameID(String(Game))
         if (!gameID.length) {

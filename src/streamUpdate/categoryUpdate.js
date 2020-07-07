@@ -18,29 +18,33 @@ module.exports = function (client) {
         if (!streams.data.length) continue
         let data = streams.data[0]
         let channelID = res[i].ChannelID
-        client.channels.fetch(channelID).then((channel) => {
-          channel.messages.fetch({ limit: 6 }).then(messages => {
-            let messageArray = messages.array()
-            let usernameArray = []
-            messageArray.forEach((msg) => {
-              if (msg.author.bot) {
-                let name = msg.content.split(' ')[0]
-                usernameArray.push(name)
+        try {
+          client.channels.fetch(channelID).then((channel) => {
+            channel.messages.fetch({ limit: 6 }).then(messages => {
+              let messageArray = messages.array()
+              let usernameArray = []
+              messageArray.forEach((msg) => {
+                if (msg.author.bot) {
+                  let name = msg.content.split(' ')[0]
+                  usernameArray.push(name)
+                }
+              })
+              let index = usernameArray.indexOf(data.user_name)
+              if (index == -1) {
+                sendStreamer(data, client, channelID, collection, res[i].ServerID)
+              } else if (index >= 0) {
+                let messageCooldown = (LastUpdateSec - (cooldownSec * index))
+                let timeDiff = (currentTime - messageCooldown)
+                let twoHours = (2 * 60 * 60)
+                if (timeDiff > twoHours) {
+                  sendStreamer(data, client, channelID, collection, res[i].ServerID)
+                }
               }
             })
-            let index = usernameArray.indexOf(data.user_name)
-            if (index == -1) {
-              sendStreamer(data, client, channelID, collection, res[i].ServerID)
-            } else if (index >= 0) {
-              let messageCooldown = (LastUpdateSec - (cooldownSec * index))
-              let timeDiff = (currentTime - messageCooldown)
-              let twoHours = (2 * 60 * 60)
-              if (timeDiff > twoHours) {
-                sendStreamer(data, client, channelID, collection, res[i].ServerID)
-              }
-            }
           })
-        })
+        } catch (error) {
+          console.error(error)
+        }
       }
 
     }
@@ -63,9 +67,13 @@ async function sendStreamer(data, client, channelID, collection, ID) {
       .setThumbnail(img)
       .addFields({ name: 'Playing', value: gameName, inline: true }, { name: 'Lang', value: data.language, inline: true }, { name: 'Viewers', value: data.viewer_count })
       .setImage(thumbnail)
-    client.channels.fetch(channelID).then(channel => {
-      channel.send(`${data.user_name} is live!`, streamerEmbed)
-    })
+    try {
+      client.channels.fetch(channelID).then(channel => {
+        channel.send(`${data.user_name} is live!`, streamerEmbed)
+      })
+    } catch (error) {
+      console.error(error)
+    }
   })
   collection.update({ ServerID: ID }, { $set: { LastUpdate: new Date() } })
 }
