@@ -22,12 +22,12 @@ module.exports = function (client) {
           channel.messages.fetch({ limit: 6 }).then(messages => {
             let messageArray = messages.array()
             let usernameArray = []
-            for (let j = 0; j < messageArray.length; j++) {
-              if (messageArray[j].author.bot) {
-                let name = messageArray[j].content.split(' ')[0]
+            messageArray.forEach((msg) => {
+              if (msg.author.bot) {
+                let name = msg.content.split(' ')[0]
                 usernameArray.push(name)
               }
-            }
+            })
             let index = usernameArray.indexOf(data.user_name)
             if (index == -1) {
               sendStreamer(data, client, channelID, collection, res[i].ServerID)
@@ -61,7 +61,6 @@ async function sendStreamer(data, client, channelID, collection, ID) {
       .setURL(`https://twitch.tv/${data.user_name}`)
       .setAuthor(data.user_name, img, `https://twitch.tv/${data.user_name}`)
       .setThumbnail(img)
-      // TODO GET THE NAME OF THE GAME BEING PLAYED
       .addFields({ name: 'Playing', value: gameName, inline: true }, { name: 'Lang', value: data.language, inline: true }, { name: 'Viewers', value: data.viewer_count })
       .setImage(thumbnail)
     client.channels.fetch(channelID).then(channel => {

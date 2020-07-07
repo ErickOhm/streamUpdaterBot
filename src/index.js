@@ -1,6 +1,7 @@
 const fs = require('fs');
 const Discord = require('discord.js');
 const categoryUpdate = require('./streamUpdate/categoryUpdate')
+const favoritesUpdate = require('./streamUpdate/favoritesUpdate')
 
 require('dotenv').config();
 
@@ -23,7 +24,10 @@ client.once('ready', () => {
 client.on('ready', () => {
   setInterval(function () {
     categoryUpdate(client);
-  }, 2 * 60 * 1000)
+  }, 2.5 * 60 * 1000)
+  setInterval(function () {
+    favoritesUpdate(client);
+  }, 1 * 60 * 1000)
 })
 
 client.on('message', (message) => {
