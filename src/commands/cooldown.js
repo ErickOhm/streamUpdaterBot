@@ -8,6 +8,7 @@ module.exports = {
   usage: '!cooldown <time in minutes>',
   aliases: ['cooldown'],
   args: true,
+  cooldown: 5,
   execute(message, args) {
     let time = parseInt(args[0])
     if (time > 5) {

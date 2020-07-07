@@ -5,6 +5,7 @@ module.exports = {
   name: 'stream',
   description: 'get most viewed stream from <category>',
   args: true,
+  cooldown: 10,
   usage: '!stream <category>',
   async execute(message, args) {
     if (!args.length) {

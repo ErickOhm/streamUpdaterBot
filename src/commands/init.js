@@ -7,6 +7,7 @@ module.exports = {
   args: false,
   aliases: ['start', 'init'],
   usage: '!init',
+  cooldown: 5,
   execute(message, args) {
     const db = require('monk')(process.env.MONGODB_URI)
     const collection = db.get('document')

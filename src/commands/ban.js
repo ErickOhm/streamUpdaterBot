@@ -5,6 +5,7 @@ module.exports = {
   description: 'Ban people from showing up in the bot updates',
   usage: '!ban <add/remove> <username>',
   args: true,
+  cooldown: 5,
   async execute(message, args) {
     let username = args[1].toLowerCase()
     if (args.length < 2) {

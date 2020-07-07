@@ -10,6 +10,7 @@ module.exports = {
   aliases: ['channel'],
   usage: '!channel',
   args: false,
+  cooldown: 5,
   execute(message) {
     let channelID = message.channel.id
     let serverID = message.guild.id

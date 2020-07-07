@@ -10,6 +10,7 @@ module.exports = {
   usage: '!category <new category>',
   aliases: ['category'],
   args: true,
+  cooldown: 5,
   async execute(message, args) {
     let serverID = message.guild.id
     let game = args.join(' ')
