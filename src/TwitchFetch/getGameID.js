@@ -12,8 +12,13 @@ module.exports = function (game) {
         return res.error
       }
       let parsed = JSON.parse(res.raw_body)
-      let id = parsed['data'][0]['id']
-      return id
+      if (parsed.data) {
+        let id = parsed['data'][0]['id']
+        return id
+      } else {
+        let noData = []
+        return noData
+      }
     });
   return req
 }

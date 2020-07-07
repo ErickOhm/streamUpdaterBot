@@ -1,5 +1,6 @@
 const db = require('monk')(process.env.MONGODB_URI)
 const collection = db.get('document')
+const Discord = require('discord.js');
 
 module.exports = {
   name: 'cooldown',
@@ -12,7 +13,10 @@ module.exports = {
       let serverID = message.guild.id
       let cooldown = Math.round(args[0])
       collection.update({ ServerID: serverID }, { $set: { Cooldown: cooldown } }).then(() => {
-        message.channel.send(`Successfully changed your cooldown to ${args[0]} minutes`)
+        const successMessage = new Discord.MessageEmbed()
+          .setColor('#2ecc71')
+          .setTitle(`Successfully changed your cooldown to ${time} minutes`)
+        message.channel.send(successMessage)
         db.close()
       })
     } else {
