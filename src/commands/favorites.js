@@ -26,7 +26,7 @@ module.exports = {
         return message.channel.send(infoMessage)
       })
     }
-    if (args.length >= 2) {
+    if (args.length < 2) {
       return message.channel.send('Missing one or more arguments!')
     }
     if (args[0].toLowerCase() === 'add') {
