@@ -13,14 +13,15 @@ module.exports = {
   cooldown: 5,
   async execute(message, args) {
     let serverID = message.guild.id
-    let game = args.join(' ')
-    let gameID = await getGameID(game)
+    let gameName = args.join(' ')
+    let gameLink = args.join('%20')
+    let gameID = await getGameID(gameLink)
     if (gameID.length) {
       collection.update({ ServerID: serverID }, { $set: { Category: gameID } }).then(() => {
         const successMessage = new Discord.MessageEmbed()
           .setColor('#2ecc71')
-          .setTitle(`Successfully changed your category to ${game}`)
-          .setURL(`https://www.twitch.tv/directory/game/${game}`)
+          .setTitle(`Successfully changed your category to ${gameName}`)
+          .setURL(`https://www.twitch.tv/directory/game/${gameLink}`)
         message.channel.send(successMessage)
         db.close()
       })
