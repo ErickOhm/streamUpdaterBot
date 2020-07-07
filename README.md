@@ -1,1 +1,55 @@
-# UpdaterBot
+<h1 align="center">Welcome to streamupdater 👋</h1>
+<p>
+  <img alt="Version" src="https://img.shields.io/badge/version-0.9.0-blue.svg?cacheSeconds=2592000" />
+  <a href="https://github.com/erickmack/streamUpdaterBot#readme" target="_blank">
+    <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
+  </a>
+  <a href="https://github.com/erickmack/streamUpdaterBot/graphs/commit-activity" target="_blank">
+    <img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" />
+  </a>
+  <a href="https://github.com/erickmack/streamUpdaterBot/blob/master/LICENSE" target="_blank">
+    <img alt="License: SEE LICENSE IN LICENSE" src="https://img.shields.io/github/license/erickmack/streamupdater" />
+  </a>
+  <a href="https://twitter.com/eriickmack" target="_blank">
+    <img alt="Twitter: eriickmack" src="https://img.shields.io/twitter/follow/eriickmack.svg?style=social" />
+  </a>
+</p>
+
+> A bot that notifies you of streams in whatever category you set, as well as favorite streamers you want to know whenever they go live. Made with NodeJS and MongoDB
+
+### 🏠 [Homepage](https://github.com/erickmack/streamUpdaterBot)
+
+## Install
+
+```sh
+npm install
+```
+
+## Usage
+
+```sh
+npm run start
+```
+
+## Author
+
+👤 **Erickmack**
+
+* Twitter: [@eriickmack](https://twitter.com/eriickmack)
+* Github: [@erickmack](https://github.com/erickmack)
+
+## 🤝 Contributing
+
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/erickmack/streamUpdaterBot/issues). 
+
+## Show your support
+
+Give a ⭐️ if this project helped you!
+
+## 📝 License
+
+Copyright © 2020 [Erickmack](https://github.com/erickmack).<br />
+This project is [SEE LICENSE IN LICENSE](https://github.com/erickmack/streamUpdaterBot/blob/master/LICENSE) licensed.
+
+***
+_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
