@@ -24,6 +24,7 @@ client.once('ready', () => {
 });
 
 client.on('ready', () => {
+  client.user.setActivity('!help');
   setInterval(function () {
     categoryUpdate(client);
   }, 2.5 * 60 * 1000)
