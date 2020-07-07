@@ -16,15 +16,18 @@ module.exports = {
     if (args[0].toLowerCase() === 'add') {
       // ADD USER TO DATABASE
       const db = require('monk')(process.env.MONGODB_URI)
-      db.then(() => console.log('connected'))
       const collection = db.get('document')
       collection.find({ ServerID: String(message.guild.id) }).then(async (res) => {
-        for (let i = 0; i < res[0].Favorites.length; i++) {
-          let existingNames = []
-          existingNames.push(Favorites[i]['ID'])
-        }
-        if (username in existingNames) {
-          return message.channel.send('This user already exists')
+        let existingNames = []
+        let existingFavorites = res[0].Favorites
+        existingFavorites.forEach((favorite) => {
+          existingNames.push(favorite['username'])
+        })
+        if (existingNames.indexOf(username) > -1) {
+          const usernameWarning = new Discord.MessageEmbed()
+            .setColor('#e67e22')
+            .setTitle('This user already exists!')
+          return message.channel.send(usernameWarning)
         }
         let userID = await getUserID(username)
         collection.update({ ServerID: message.guild.id }, { $push: { 'Favorites': { username: username, ID: userID, wasOnline: false } } })
@@ -43,7 +46,6 @@ module.exports = {
     } else if (args[0].toLowerCase() === 'del' || args[0] === 'delete') {
       // REMOVE USER FROM DATABASE
       const db = require('monk')(process.env.MONGODB_URI)
-      db.then(() => console.log('connected'))
       const collection = db.get('document')
       collection.update({ ServerID: message.guild.id }, { $pull: { 'Favorites': { username: username } } }).then(() => {
         const delConfirmation = new Discord.MessageEmbed()

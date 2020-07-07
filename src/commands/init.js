@@ -6,9 +6,6 @@ module.exports = {
   args: true,
   execute(message, args) {
     const db = require('monk')(process.env.MONGODB_URI)
-    db.then(() => {
-      console.log('connected')
-    })
     const collection = db.get('document')
     collection.find({ ServerID: String(message.guild.id) }).then(async (res) => {
       let Game = args[0]
@@ -18,7 +15,7 @@ module.exports = {
           .then((docs) => {
             message.channel.send('You initialized the bot successfully and set the game to ' + Game)
           }).catch((err) => {
-            console.log(err)
+            message.channel.send(err)
           }).then(() => db.close())
       } else {
         message.channel.send('You already initialized this server!');
