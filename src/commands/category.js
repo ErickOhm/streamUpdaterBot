@@ -14,7 +14,7 @@ module.exports = {
   async execute(message, args) {
     let serverID = message.guild.id
     let game = args.join(' ')
-    let gameID = await getGameID(String(game))
+    let gameID = await getGameID(game)
     if (gameID.length) {
       collection.update({ ServerID: serverID }, { $set: { Category: gameID } }).then(() => {
         const successMessage = new Discord.MessageEmbed()
