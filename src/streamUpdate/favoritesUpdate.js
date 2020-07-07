@@ -1,7 +1,9 @@
 const getStreamers = require('../TwitchFetch/getStreamers')
 const getStreamerThumbnal = require('../TwitchFetch/getStreamerThumbnail')
 const getGameName = require('../TwitchFetch/getGameName')
+
 const Discord = require('discord.js');
+
 module.exports = function (client) {
   const db = require('monk')(process.env.MONGODB_URI)
   const collection = db.get('document')
@@ -9,16 +11,25 @@ module.exports = function (client) {
     for (let i = 0; i < res.length; i++) {
       let favorites = res[i].Favorites
       let channelID = res[i].ChannelID
-      favorites.forEach(async (favorite) => {
-        let streamers = await getStreamers([favorite['ID']])
-        if (streamers.data.length > 0) {
-          if (favorite['wasOnline'] == false) {
-            sendStreamer(streamers.data[0], client, channelID, collection, res[i].ServerID, favorite['ID'])
-          }
-        } else if (!streamers.data.length) {
-          collection.update({ 'ServerID': res[i].ServerID, "Favorites.ID": favorite['ID'] }, { $set: { "Favorites.$.wasOnline": false } })
-        }
+      let favoritesID = []
+      favorites.forEach(favorite => {
+        favoritesID.push(favorite['ID'])
       })
+      let streamers = await getStreamers(favoritesID)
+      if (streamers.data.length > 0) {
+        favorites.forEach((favorite) => {
+          let tempData = streamers.data.filter(streamer => {
+            return streamer.user_id === favorite['ID']
+          })
+          if (tempData.length) {
+            if (favorite['wasOnline'] == false) {
+              sendStreamer(tempData[0], client, channelID, collection, res[i].ServerID, favorite['ID'])
+            }
+          } else if (!tempData.length) {
+            collection.update({ 'ServerID': res[i].ServerID, "Favorites.ID": favorite['ID'] }, { $set: { "Favorites.$.wasOnline": false } })
+          }
+        })
+      }
     }
   })
 }
