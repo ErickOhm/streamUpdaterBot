@@ -12,13 +12,19 @@ module.exports = {
   usage: '!favorites <add/remove> <username> | !favorites list',
   args: true,
   async execute(message, args) {
-    if (args[0].toLowerCase === 'list') {
+    if (args[0].toLowerCase == 'list') {
       collection.find({ ServerID: String(message.guild.id) }).then((res) => {
         let favoriteNames = []
         let existingFavorites = res[0].Favorites
         existingFavorites.forEach((favorite) => {
           favoriteNames.push(favorite['username'])
         })
+        if (!favoriteNames.length) {
+          const infoMessage = new Discord.MessageEmbed()
+            .setColor('#3498db')
+            .setTitle('You don\'t have any favorites added yet.')
+          return message.channel.send(infoMessage)
+        }
         const infoMessage = new Discord.MessageEmbed()
           .setColor('#3498db')
           .setTitle('Here\'s all the users you have favorited:')

@@ -12,11 +12,12 @@ module.exports = function (client) {
       let favorites = res[i].Favorites
       let channelID = res[i].ChannelID
       let favoritesID = []
+      if (!favorites.length) { continue }
       favorites.forEach(favorite => {
         favoritesID.push(favorite['ID'])
       })
       let streamers = await getStreamers(favoritesID)
-      if (!streamers) return
+      if (!streamers) continue
       if (streamers.data.length > 0) {
         favorites.forEach((favorite) => {
           let tempData = streamers.data.filter(streamer => {
