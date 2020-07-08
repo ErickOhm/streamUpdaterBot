@@ -16,6 +16,7 @@ module.exports = function (client) {
         favoritesID.push(favorite['ID'])
       })
       let streamers = await getStreamers(favoritesID)
+      if (!streamers) return
       if (streamers.data.length > 0) {
         favorites.forEach((favorite) => {
           let tempData = streamers.data.filter(streamer => {
