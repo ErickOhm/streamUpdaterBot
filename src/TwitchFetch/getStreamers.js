@@ -15,7 +15,7 @@ module.exports = function (ID) {
       'Authorization': `Bearer ${process.env.SECRET_TOKEN}`
     })
     .then(function (res) {
-      if (res.error) throw new Error(res.error);
+      if (res.error) console.error(res.err, URL + ID)
       let parsed = JSON.parse(res.raw_body)
       return parsed
     });
