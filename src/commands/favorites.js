@@ -12,7 +12,8 @@ module.exports = {
   usage: '!favorites <add/remove> <username> | !favorites list',
   args: true,
   async execute(message, args) {
-    if (args[0].toLowerCase == 'list') {
+    let option = args[0]
+    if (option.toLowerCase() == 'list') {
       collection.find({ ServerID: String(message.guild.id) }).then((res) => {
         let favoriteNames = []
         let existingFavorites = res[0].Favorites
@@ -32,7 +33,7 @@ module.exports = {
         return message.channel.send(infoMessage)
       })
     }
-    if (args[0].toLowerCase() === 'add') {
+    if (option.toLowerCase() === 'add') {
       if (args.length < 2) {
         return message.channel.send('Missing one or more arguments!')
       }
@@ -73,7 +74,7 @@ module.exports = {
         message.channel.send(confirmation)
         // -- END OF CONFIRMATION MESSAGE
       }).then(() => db.close())
-    } else if (args[0].toLowerCase() === 'del' || args[0] === 'remove') {
+    } else if (option.toLowerCase() === 'del' || option === 'remove') {
       if (args.length < 2) {
         return message.channel.send('Missing one or more arguments!')
       }
