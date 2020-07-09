@@ -32,10 +32,10 @@ module.exports = {
         return message.channel.send(infoMessage)
       })
     }
-    if (args.length < 2) {
-      return message.channel.send('Missing one or more arguments!')
-    }
     if (args[0].toLowerCase() === 'add') {
+      if (args.length < 2) {
+        return message.channel.send('Missing one or more arguments!')
+      }
       let username = args[1].toLowerCase()
       let twitch = 'https://twitch.tv/'
       // ADD USER TO DATABASE
@@ -74,6 +74,9 @@ module.exports = {
         // -- END OF CONFIRMATION MESSAGE
       }).then(() => db.close())
     } else if (args[0].toLowerCase() === 'del' || args[0] === 'remove') {
+      if (args.length < 2) {
+        return message.channel.send('Missing one or more arguments!')
+      }
       let username = args[1].toLowerCase()
       // REMOVE USER FROM DATABASE
       collection.update({ ServerID: message.guild.id }, { $pull: { 'Favorites': { username: username } } }).then(() => {
