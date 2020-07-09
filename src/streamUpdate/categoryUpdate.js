@@ -9,6 +9,9 @@ module.exports = function (client) {
   collection.find({}).then(async (res) => {
     for (let i = 0; i < res.length; i++) {
       let category = res[i].Category
+      if (category == 'none') {
+        continue
+      }
       let LastUpdateSec = ((res[i].LastUpdate.getTime()) / 1000);
       let cooldownSec = ((+res[i].Cooldown) * 60);
       let cooldownTime = Math.round(LastUpdateSec + cooldownSec);
