@@ -35,8 +35,8 @@ module.exports = function (client) {
               } else if (index >= 0) {
                 let messageCooldown = (LastUpdateSec - (cooldownSec * index))
                 let timeDiff = (currentTime - messageCooldown)
-                let twoHours = (2 * 60 * 60)
-                if (timeDiff > twoHours) {
+                let threeHours = (3 * 60 * 60)
+                if (timeDiff > threeHours) {
                   sendStreamer(data, client, channelID, collection, res[i].ServerID)
                 }
               }
