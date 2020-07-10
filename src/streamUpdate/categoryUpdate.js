@@ -75,7 +75,7 @@ async function sendStreamer(data, client, channelID, collection, ID) {
         channel.send(`${data.user_name} is live!`, streamerEmbed)
       })
     } catch (error) {
-      console.error(error)
+      console.error(channelID, error)
     }
   })
   collection.update({ ServerID: ID }, { $set: { LastUpdate: new Date() } })

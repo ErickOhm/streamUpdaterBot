@@ -56,7 +56,7 @@ async function sendStreamer(data, client, channelID, collection, ServerID, favor
         channel.send(`${data.user_name} is live!`, streamerEmbed)
       })
     } catch (error) {
-      console.error(error)
+      console.error(channelID, error)
     }
   })
   collection.update({ 'ServerID': ServerID, "Favorites.ID": favoriteID }, { $set: { "Favorites.$.wasOnline": true } })
