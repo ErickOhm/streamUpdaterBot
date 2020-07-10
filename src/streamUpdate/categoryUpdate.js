@@ -72,7 +72,11 @@ async function sendStreamer(data, client, channelID, collection, ID) {
       .setImage(thumbnail)
     try {
       client.channels.fetch(channelID).then(channel => {
-        channel.send(`${data.user_name} is live!`, streamerEmbed)
+        try {
+          channel.send(`${data.user_name} is live!`, streamerEmbed)
+        } catch (error) {
+          console.error(error, channelID)
+        }
       })
     } catch (error) {
       console.error(channelID, error)
