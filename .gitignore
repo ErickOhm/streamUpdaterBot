@@ -3,4 +3,5 @@ node_modules/
 **/test.js
 **/reload.js
 **/maintenance.js
+**/ban.js
 .vscode/

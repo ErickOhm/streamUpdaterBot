@@ -24,18 +24,30 @@ module.exports = {
           const infoMessage = new Discord.MessageEmbed()
             .setColor('#3498db')
             .setTitle('You don\'t have any favorites added yet.')
-          return message.channel.send(infoMessage)
+          try {
+            return message.channel.send(infoMessage)
+          } catch (error) {
+            console.error(error, message.channel)
+          }
+
         }
         const infoMessage = new Discord.MessageEmbed()
           .setColor('#3498db')
           .setTitle('Here\'s all the users you have favorited:')
           .setDescription(favoriteNames.join('\n'))
-        return message.channel.send(infoMessage)
+        try {
+          return message.channel.send(infoMessage)
+        } catch (error) {
+          console.error(error, message.channel)
+        }
+
       })
     }
     if (option.toLowerCase() === 'add') {
       if (args.length < 2) {
-        return message.channel.send('Missing one or more arguments!')
+        try { return message.channel.send('Missing one or more arguments!') } catch (error) {
+          console.error(error, message.channel)
+        }
       }
       let username = args[1].toLowerCase()
       let twitch = 'https://twitch.tv/'
@@ -51,7 +63,11 @@ module.exports = {
             .setColor('#e67e22')
             .setTitle('This user already exists!')
           db.close()
-          return message.channel.send(usernameWarning)
+          try {
+            return message.channel.send(usernameWarning)
+          } catch (error) {
+            console.error(error, message.channel)
+          }
         }
         let userID = await getUserID(username)
         if (!userID.length) {
@@ -59,7 +75,11 @@ module.exports = {
             .setColor('#e74c3c')
             .setTitle('This user does not exist!')
           db.close()
-          return message.channel.send(errorMessage)
+          try {
+            return message.channel.send(errorMessage)
+          } catch (error) {
+            console.error(error, message.channel)
+          }
         }
         collection.update({ ServerID: message.guild.id }, { $push: { 'Favorites': { username: username, ID: userID, wasOnline: false } } })
         let user = await getUsers(userID)
@@ -71,12 +91,21 @@ module.exports = {
           .setAuthor(user.data[0].display_name, user.data[0]['profile_image_url'])
           .setDescription('You will receive updates whenever this user goes online')
           .setThumbnail(user.data[0]['profile_image_url'])
-        message.channel.send(confirmation)
+        try {
+          message.channel.send(confirmation)
+        } catch (error) {
+          console.error(error, message.channel)
+        }
         // -- END OF CONFIRMATION MESSAGE
       }).then(() => db.close())
     } else if (option.toLowerCase() === 'del' || option === 'remove') {
       if (args.length < 2) {
-        return message.channel.send('Missing one or more arguments!')
+        try {
+          return message.channel.send('Missing one or more arguments!')
+        } catch (error) {
+          console.error(error, message.channel)
+        }
+
       }
       let username = args[1].toLowerCase()
       // REMOVE USER FROM DATABASE
@@ -84,7 +113,12 @@ module.exports = {
         const delConfirmation = new Discord.MessageEmbed()
           .setColor('#e74c3c')
           .setTitle(`Removed ${username} from your favorites`)
-        message.channel.send(delConfirmation)
+        try {
+          message.channel.send(delConfirmation)
+        } catch (error) {
+          console.error(error, message.channel)
+        }
+
         db.close()
       })
     }

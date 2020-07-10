@@ -21,7 +21,7 @@ module.exports = {
           .setColor('#2ecc71')
           .setTitle('You will not receive category updates, make sure to add favorite streamers')
         db.close()
-        return message.channel.send(successMessage)
+        try { return message.channel.send(successMessage) } catch (error) { console.error(error, message.channel) }
       })
     }
     let gameID = await getGameID(gameLink)
@@ -31,14 +31,14 @@ module.exports = {
           .setColor('#2ecc71')
           .setTitle(`Successfully changed your category to ${gameName}`)
           .setURL(`https://www.twitch.tv/directory/game/${gameLink}`)
-        message.channel.send(successMessage)
+        try { message.channel.send(successMessage) } catch (error) { console.error(error, message.channel) }
         db.close()
       })
     } else if (!gameID.length && gameName !== 'none') {
       const errorMessage = new Discord.MessageEmbed()
         .setColor('#e74c3c')
         .setTitle('This category doesn\'t exist')
-      return message.channel.send(errorMessage)
+      try { return message.channel.send(errorMessage) } catch (error) { console.error(error, message.channel) }
     }
   },
 };

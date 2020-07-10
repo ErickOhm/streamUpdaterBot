@@ -49,7 +49,11 @@ client.on('message', (message) => {
         reply += `\nThe proper usage would be: \`${command.usage}\``;
       }
 
-      return message.channel.send(reply);
+      try {
+        return message.channel.send(reply)
+      } catch (error) {
+        console.error(error, message.channel)
+      }
     }
 
     if (!cooldowns.has(command.name)) {
@@ -65,7 +69,11 @@ client.on('message', (message) => {
 
       if (now < expirationTime) {
         const timeLeft = (expirationTime - now) / 1000;
-        return message.reply(`please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`);
+        try {
+          return message.reply(`please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`);
+        } catch (error) {
+          console.error(error, message.channel)
+        }
       }
     }
     timestamps.set(message.author.id, now);

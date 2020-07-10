@@ -21,7 +21,12 @@ module.exports = {
 
 
     if (!args.length) {
-      return message.channel.send(helpEmbed)
+      try {
+        return message.channel.send(helpEmbed)
+      } catch (error) {
+        console.error(error, message.channel)
+      }
+
     }
     const name = args[0].toLowerCase();
     const command = commands.get(name) || commands.find((c) => c.aliases && c.aliases.includes(name));
@@ -35,6 +40,11 @@ module.exports = {
       .setTitle(command.name.toUpperCase())
       .setDescription(command.description)
       .addFields({ name: 'Aliases', value: `${command.aliases ? command.aliases.join(', ') : 'No aliases'}` }, { name: 'Usage', value: command.usage }, { name: 'Cooldown', value: `${command.cooldown || 3} second(s)` })
-    message.channel.send(moreInfoEmbed);
+    try {
+      message.channel.send(moreInfoEmbed);
+    } catch (error) {
+      console.error(error, message.channel)
+    }
+
   },
 };

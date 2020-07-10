@@ -4,6 +4,10 @@ module.exports = {
   usage: '!echo <text>',
   args: true,
   execute(message, args) {
-    message.channel.send(args.join(' '));
+    try {
+      message.channel.send(args.join(' '));
+    } catch (error) {
+      console.error(error, message.channel)
+    }
   },
 };

@@ -18,14 +18,14 @@ module.exports = {
         const successMessage = new Discord.MessageEmbed()
           .setColor('#2ecc71')
           .setTitle(`Successfully changed your cooldown to ${time} minutes`)
-        message.channel.send(successMessage)
+        try { message.channel.send(successMessage) } catch (error) { console.error(error, message.channel) }
         db.close()
       })
     } else {
       const errorMessage = new Discord.MessageEmbed()
         .setColor('#e74c3c')
         .setTitle('Time needs to be a number and minimum 5')
-      return message.channel.send(errorMessage)
+      try { return message.channel.send(errorMessage) } catch (error) { console.error(error, message.channel) }
     }
   },
 };

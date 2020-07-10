@@ -18,7 +18,11 @@ module.exports = {
       const successMessage = new Discord.MessageEmbed()
         .setColor('#2ecc71')
         .setTitle(`Successfully changed your channel to ${message.channel.name}`)
-      message.channel.send(successMessage)
+      try {
+        message.channel.send(successMessage)
+      } catch (error) {
+        console.error(error, message.channel)
+      }
       db.close()
     })
   },
