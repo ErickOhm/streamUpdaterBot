@@ -34,14 +34,14 @@ client.once('ready', () => {
 
 client.on('ready', () => {
   client.user.setActivity('!help');
+  checkRemoveRole(client,collection);
+  checkAddRole(client,collection);
   setInterval(function () {
     categoryUpdate(client, collection);
   }, 2.5 * 60 * 1000)
   setInterval(function () {
     favoritesUpdate(client,collection);
   }, 1 * 60 * 1000)
-  checkRemoveRole(client,collection)
-  checkAddRole(client,collection)
 })
 
 client.on('message', (message) => {

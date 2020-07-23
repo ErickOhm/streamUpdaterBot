@@ -1,18 +1,20 @@
 
 
-function roleUpdate(prevState, newState, client,collection) {
+function roleUpdate(prevState, newState, client, collection) {
   const ACTIVITY = 'STREAMING'
   let CHOSEN_ROLE = false
   let FILTER = false
 
-  collection.find({ServerID: newState.guild.id}).then(res => {
-    if(res[0].ChosenRole){
-      CHOSEN_ROLE = res[0].ChosenRole
-      FILTER = res[0].Filter === 'none' ? false : res[0].Filter
+  collection.find({ ServerID: newState.guild.id }).then(res => {
+    if (res.length) {
+      if (res[0].ChosenRole) {
+        CHOSEN_ROLE = res[0].ChosenRole
+        FILTER = res[0].Filter === 'none' ? false : res[0].Filter
+      }
     }
   })
 
-  if(!CHOSEN_ROLE) return
+  if (!CHOSEN_ROLE) return
   // filter by game 
   // activity.state === game
   let prevActivity = false
@@ -64,7 +66,7 @@ function roleUpdate(prevState, newState, client,collection) {
     }
 
   }
-  if(FILTER && (newActivityGame !== FILTER)){
+  if (FILTER && (newActivityGame !== FILTER)) {
     // REMOVE ROLE
     let dServer = client.guilds.cache.find(guild => guild.id === newState.guild.id)
     let role = dServer.roles.cache.find(r => r.name === CHOSEN_ROLE)

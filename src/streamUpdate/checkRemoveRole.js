@@ -4,8 +4,8 @@ function checkRole(client,collection) {
     res.forEach(server => {
       let serverID = server.ServerID
       let roleName = server.ChosenRole ? server.ChosenRole : 'no_role'
-      let Filter = server.Filter === 'none' ? false : server.Filter
       if (roleName !== 'no_role') {
+        let Filter = server.Filter === 'none' ? false : server.Filter
         let guild = client.guilds.cache.find(guild => guild.id === serverID)
         let guildRole = guild.roles.cache.find(role => role.name === roleName)
         if(!guildRole) return
