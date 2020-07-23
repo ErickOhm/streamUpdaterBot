@@ -2,7 +2,7 @@ const getUserID = require('../TwitchFetch/getUserID')
 const getUsers = require('../TwitchFetch/getUsers')
 const Discord = require('discord.js')
 
-const db = require('monk')(process.env.MONGODB_URI)
+const db = require('monk')(process.env.DB_URI)
 const collection = db.get('document')
 
 module.exports = {

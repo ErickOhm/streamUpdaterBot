@@ -5,7 +5,7 @@ function roleUpdate(prevState, newState, client) {
   let CHOSEN_ROLE = false
   let FILTER = false
   
-  const db = require('monk')(process.env.MONGODB_URI)
+  const db = require('monk')(process.env.DB_URI)
   const collection = db.get('document')
   collection.find({ServerID: newState.guild.id}).then(res => {
     if(res.ChosenRole){

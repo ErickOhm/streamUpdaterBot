@@ -4,7 +4,7 @@ module.exports = {
   usage: '!streaming',
   aliases: ['roles','streaming'],
   execute(message) {
-    const db = require('monk')(process.env.MONGODB_URI)
+    const db = require('monk')(process.env.DB_URI)
     const collection = db.get('document')
     collection.find({ ServerID: message.guild.id }).then(res => {
       if (res[0].ChosenRole) {

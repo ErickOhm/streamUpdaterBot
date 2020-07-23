@@ -1,5 +1,5 @@
 // TODO COMMAND TO UPDATE THE CHANNEL WHERE THE STREAM UPDATES ARE BEING SENT TO
-const db = require('monk')(process.env.MONGODB_URI)
+const db = require('monk')(process.env.DB_URI)
 const collection = db.get('document')
 
 const Discord = require('discord.js');

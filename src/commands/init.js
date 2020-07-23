@@ -9,7 +9,7 @@ module.exports = {
   usage: '!init',
   cooldown: 5,
   execute(message, args) {
-    const db = require('monk')(process.env.MONGODB_URI)
+    const db = require('monk')(process.env.DB_URI)
     const collection = db.get('document')
     collection.find({ ServerID: String(message.guild.id) }).then(async (res) => {
       if (!res.length) {

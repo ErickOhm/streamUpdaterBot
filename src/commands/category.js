@@ -1,5 +1,5 @@
 // TODO: UPDATE WHAT CATEGORY USERS RECEIVE STREAM UPDATES FROM
-const db = require('monk')(process.env.MONGODB_URI)
+const db = require('monk')(process.env.DB_URI)
 const collection = db.get('document')
 const Discord = require('discord.js');
 const getGameID = require('../TwitchFetch/getGameID')
