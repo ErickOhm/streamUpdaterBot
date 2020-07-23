@@ -3,7 +3,8 @@ const Discord = require('discord.js');
 // Functions to call
 const categoryUpdate = require('./streamUpdate/categoryUpdate')
 const favoritesUpdate = require('./streamUpdate/favoritesUpdate')
-const checkRole = require('./streamUpdate/checkRole')
+const checkRemoveRole = require('./streamUpdate/checkRemoveRole')
+const checkAddRole = require('./streamUpdate/checkAddRole')
 const roleUpdate = require('./streamUpdate/roleUpdate')
 
 const cooldowns = new Discord.Collection();
@@ -39,7 +40,8 @@ client.on('ready', () => {
   setInterval(function () {
     favoritesUpdate(client,collection);
   }, 1 * 60 * 1000)
-  checkRole(client,collection)
+  checkRemoveRole(client,collection)
+  checkAddRole(client,collection)
 })
 
 client.on('message', (message) => {

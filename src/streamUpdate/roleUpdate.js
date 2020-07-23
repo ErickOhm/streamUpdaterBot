@@ -6,9 +6,9 @@ function roleUpdate(prevState, newState, client,collection) {
   let FILTER = false
 
   collection.find({ServerID: newState.guild.id}).then(res => {
-    if(res.ChosenRole){
-      CHOSEN_ROLE = res.ChosenRole
-      FILTER = res.Filter === 'none' ? false : res.Filter
+    if(res[0].ChosenRole){
+      CHOSEN_ROLE = res[0].ChosenRole
+      FILTER = res[0].Filter === 'none' ? false : res[0].Filter
     }
   })
 

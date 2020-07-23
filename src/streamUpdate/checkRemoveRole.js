@@ -1,4 +1,3 @@
-// TODO
 // check if while the bot was offline someone stopped streaming and if so, remove the role.
 function checkRole(client,collection) {
   collection.find({}).then(async (res) => {
