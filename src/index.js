@@ -1,7 +1,10 @@
 const fs = require('fs');
 const Discord = require('discord.js');
+// Functions to call
 const categoryUpdate = require('./streamUpdate/categoryUpdate')
 const favoritesUpdate = require('./streamUpdate/favoritesUpdate')
+const checkRole = require('./streamUpdate/checkRole')
+const roleUpdate = require('./streamUpdate/roleUpdate')
 
 const cooldowns = new Discord.Collection();
 
@@ -31,6 +34,7 @@ client.on('ready', () => {
   setInterval(function () {
     favoritesUpdate(client);
   }, 1 * 60 * 1000)
+  checkRole(client)
 })
 
 client.on('message', (message) => {
@@ -88,5 +92,10 @@ client.on('message', (message) => {
     }
   }
 });
+
+client.on('presenceUpdate', (prevState,newState) => {
+ roleUpdate(prevState,newState,client)
+})
+
 
 client.login(process.env.BOT_TOKEN);
