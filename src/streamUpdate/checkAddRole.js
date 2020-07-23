@@ -1,6 +1,6 @@
 // TODO
 // Check if while the bot was offline someone started streaming
-function checkAddRole(client,collection){
+function checkAddRole(client, collection) {
   client.guilds.cache.forEach(server => {
     let serverID = server.id
     server.presences.cache.forEach(user => {
@@ -15,9 +15,12 @@ function checkAddRole(client,collection){
                 let guild = client.guilds.cache.find(guild => guild.id === serverID)
                 let guildRole = guild.roles.cache.find(role => role.name === roleName)
                 let member = guild.members.cache.find(member => member.id === userID)
-                if (Filter && (Filter === activity.state)) {
-                  // give role
-                  member.roles.add(guildRole)
+                if (Filter) {
+                  console.log(member.presences.activities)
+                  if (Filter === activity.state) {
+                    // give role
+                    member.roles.add(guildRole)
+                  }
                 } else if (!Filter) {
                   // give role
                   member.roles.add(guildRole)
