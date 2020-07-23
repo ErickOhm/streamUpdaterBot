@@ -2,16 +2,13 @@ const getUserID = require('../TwitchFetch/getUserID')
 const getUsers = require('../TwitchFetch/getUsers')
 const Discord = require('discord.js')
 
-const db = require('monk')(process.env.DB_URI)
-const collection = db.get('document')
-
 module.exports = {
   name: 'favorites',
   aliases: ['fav'],
   description: '<Add> your favorite streamers to know whenever they go online, <Remove> users from your favorites, <List> all the people you have added',
   usage: '!favorites <add/remove> <username> | !favorites list',
   args: true,
-  async execute(message, args) {
+  async execute(message, args, client, collection) {
     let option = args[0]
     if (option.toLowerCase() == 'list') {
       collection.find({ ServerID: String(message.guild.id) }).then((res) => {
@@ -62,7 +59,6 @@ module.exports = {
           const usernameWarning = new Discord.MessageEmbed()
             .setColor('#e67e22')
             .setTitle('This user already exists!')
-          db.close()
           try {
             return message.channel.send(usernameWarning)
           } catch (error) {
@@ -74,7 +70,6 @@ module.exports = {
           const errorMessage = new Discord.MessageEmbed()
             .setColor('#e74c3c')
             .setTitle('This user does not exist!')
-          db.close()
           try {
             return message.channel.send(errorMessage)
           } catch (error) {
@@ -97,7 +92,7 @@ module.exports = {
           console.error(error, message.channel)
         }
         // -- END OF CONFIRMATION MESSAGE
-      }).then(() => db.close())
+      })
     } else if (option.toLowerCase() === 'del' || option === 'remove') {
       if (args.length < 2) {
         try {
@@ -119,7 +114,7 @@ module.exports = {
           console.error(error, message.channel)
         }
 
-        db.close()
+         
       })
     }
   },

@@ -10,6 +10,11 @@ const cooldowns = new Discord.Collection();
 
 require('dotenv').config();
 
+// connect to database
+const db = require('monk')(process.env.DB_URI)
+const collection = db.get('document')
+
+
 const prefix = process.env.PREFIX;
 
 const client = new Discord.Client();
@@ -29,12 +34,12 @@ client.once('ready', () => {
 client.on('ready', () => {
   client.user.setActivity('!help');
   setInterval(function () {
-    categoryUpdate(client);
+    categoryUpdate(client, collection);
   }, 2.5 * 60 * 1000)
   setInterval(function () {
-    favoritesUpdate(client);
+    favoritesUpdate(client,collection);
   }, 1 * 60 * 1000)
-  checkRole(client)
+  checkRole(client,collection)
 })
 
 client.on('message', (message) => {
@@ -85,7 +90,7 @@ client.on('message', (message) => {
 
 
     try {
-      command.execute(message, args, client);
+      command.execute(message, args, client,collection);
     } catch (error) {
       console.error(error);
       message.reply('there was an error trying to execute that command!');
@@ -93,8 +98,8 @@ client.on('message', (message) => {
   }
 });
 
-client.on('presenceUpdate', (prevState,newState) => {
- roleUpdate(prevState,newState,client)
+client.on('presenceUpdate', (prevState, newState) => {
+  roleUpdate(prevState, newState, client,collection)
 })
 
 

@@ -8,9 +8,7 @@ module.exports = {
   aliases: ['start', 'init'],
   usage: '!init',
   cooldown: 5,
-  execute(message, args) {
-    const db = require('monk')(process.env.DB_URI)
-    const collection = db.get('document')
+  execute(message, args,client,collection) {
     collection.find({ ServerID: String(message.guild.id) }).then(async (res) => {
       if (!res.length) {
         message.channel.send('What category would you like updates from? Type `none` if you only want to use the favorite streamers functionality.').then(() => {
@@ -22,14 +20,14 @@ module.exports = {
                 collection.insert({ ServerID: String(message.guild.id), Category: 'none', Cooldown: '5', LastUpdate: new Date(), ChannelID: String(message.channel.id), Show: 'top', Favorites: [], Banned: [] })
                   .then(res => {
                     const noGameSuccess = successMessage('Successfully initialized the bot, use `!fav add` to add your favorite streamers')
-                    db.close()
+                     
                     return message.channel.send(noGameSuccess)
                   })
               }
               let gameID = await getGameID(String(Game))
               if (!gameID.length && Game !== 'none') {
                 const gameError = errorMessage('This category does\'nt exist please try again')
-                db.close()
+                 
                 return message.channel.send(gameError)
               }
               if (gameID.length && Game !== 'none') {
@@ -39,7 +37,7 @@ module.exports = {
                   message.channel.send(gameSuccess)
                 }).catch((err) => {
                   message.channel.send(err)
-                }).then(() => db.close())
+                })
               }
             })
             .catch(() => {
@@ -49,7 +47,7 @@ module.exports = {
         });
       } else {
         const initializeError = errorMessage('Server has already been initialized!');
-        db.close()
+         
         return message.channel.send(initializeError);
       }
     })

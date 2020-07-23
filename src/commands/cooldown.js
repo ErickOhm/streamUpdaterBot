@@ -1,5 +1,3 @@
-const db = require('monk')(process.env.DB_URI)
-const collection = db.get('document')
 const Discord = require('discord.js');
 
 module.exports = {
@@ -9,7 +7,7 @@ module.exports = {
   aliases: ['cooldown'],
   args: true,
   cooldown: 5,
-  execute(message, args) {
+  execute(message, args,client,collection) {
     let time = parseInt(args[0])
     if (time > 5) {
       let serverID = message.guild.id
@@ -19,7 +17,7 @@ module.exports = {
           .setColor('#2ecc71')
           .setTitle(`Successfully changed your cooldown to ${time} minutes`)
         try { message.channel.send(successMessage) } catch (error) { console.error(error, message.channel) }
-        db.close()
+         
       })
     } else {
       const errorMessage = new Discord.MessageEmbed()

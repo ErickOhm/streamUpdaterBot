@@ -1,6 +1,4 @@
 // TODO: UPDATE WHAT CATEGORY USERS RECEIVE STREAM UPDATES FROM
-const db = require('monk')(process.env.DB_URI)
-const collection = db.get('document')
 const Discord = require('discord.js');
 const getGameID = require('../TwitchFetch/getGameID')
 
@@ -11,7 +9,7 @@ module.exports = {
   aliases: ['category'],
   args: true,
   cooldown: 5,
-  async execute(message, args) {
+  async execute(message, args,client,collection) {
     let serverID = message.guild.id
     let gameName = args.join(' ')
     let gameLink = args.join('%20')
@@ -20,7 +18,7 @@ module.exports = {
         const successMessage = new Discord.MessageEmbed()
           .setColor('#2ecc71')
           .setTitle('You will not receive category updates, make sure to add favorite streamers')
-        db.close()
+         
         try { return message.channel.send(successMessage) } catch (error) { console.error(error, message.channel) }
       })
     }
@@ -32,7 +30,7 @@ module.exports = {
           .setTitle(`Successfully changed your category to ${gameName}`)
           .setURL(`https://www.twitch.tv/directory/game/${gameLink}`)
         try { message.channel.send(successMessage) } catch (error) { console.error(error, message.channel) }
-        db.close()
+         
       })
     } else if (!gameID.length && gameName !== 'none') {
       const errorMessage = new Discord.MessageEmbed()

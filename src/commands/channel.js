@@ -1,6 +1,4 @@
 // TODO COMMAND TO UPDATE THE CHANNEL WHERE THE STREAM UPDATES ARE BEING SENT TO
-const db = require('monk')(process.env.DB_URI)
-const collection = db.get('document')
 
 const Discord = require('discord.js');
 
@@ -11,7 +9,7 @@ module.exports = {
   usage: '!channel',
   args: false,
   cooldown: 5,
-  execute(message) {
+  execute(message,args,client,collection) {
     let channelID = message.channel.id
     let serverID = message.guild.id
     collection.update({ ServerID: serverID }, { $set: { ChannelID: channelID } }).then(() => {
@@ -23,7 +21,7 @@ module.exports = {
       } catch (error) {
         console.error(error, message.channel)
       }
-      db.close()
+       
     })
   },
 };

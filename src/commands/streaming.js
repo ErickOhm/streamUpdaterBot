@@ -3,9 +3,7 @@ module.exports = {
   description: 'Setup an automatic role update for people streaming',
   usage: '!streaming',
   aliases: ['roles','streaming'],
-  execute(message) {
-    const db = require('monk')(process.env.DB_URI)
-    const collection = db.get('document')
+  execute(message,args,client,collection) {
     collection.find({ ServerID: message.guild.id }).then(res => {
       if (res[0].ChosenRole) {
         message.channel.send('You already have a role assinged if you would like to update it type Role if you would like to update your filter instead type Filter').then(() => {
@@ -40,7 +38,7 @@ module.exports = {
                   message.channel.send('you didn\'t type a valid option if you wish to update your role or filter please try this command again')
                   return
               }
-            }).then(() => db.close())
+            })
         })
       } else if (!res.ChosenRole) {
         message.channel.send('**Before starting make sure you have a role created and make sure the role of the bot is above the streamming role otherwise the bot can not assing it.** Type Yes if you\'re ready to continue, type No otherwise.').then(() => {

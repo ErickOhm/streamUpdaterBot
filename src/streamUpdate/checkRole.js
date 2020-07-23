@@ -1,8 +1,6 @@
 // TODO
 // check if while the bot was offline someone stopped streaming and if so, remove the role.
-function checkRole(client) {
-  const db = require('monk')(process.env.DB_URI)
-  const collection = db.get('document')
+function checkRole(client,collection) {
   collection.find({}).then(async (res) => {
     res.forEach(server => {
       let serverID = server.ServerID

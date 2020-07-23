@@ -4,9 +4,7 @@ const getGameName = require('../TwitchFetch/getGameName')
 
 const Discord = require('discord.js');
 
-module.exports = function (client) {
-  const db = require('monk')(process.env.DB_URI)
-  const collection = db.get('document')
+module.exports = function (client,collection) {
   collection.find({}).then(async (res) => {
     for (let i = 0; i < res.length; i++) {
       let favorites = res[i].Favorites

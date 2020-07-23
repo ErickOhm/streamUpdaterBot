@@ -1,12 +1,10 @@
 
 
-function roleUpdate(prevState, newState, client) {
+function roleUpdate(prevState, newState, client,collection) {
   const ACTIVITY = 'STREAMING'
   let CHOSEN_ROLE = false
   let FILTER = false
-  
-  const db = require('monk')(process.env.DB_URI)
-  const collection = db.get('document')
+
   collection.find({ServerID: newState.guild.id}).then(res => {
     if(res.ChosenRole){
       CHOSEN_ROLE = res.ChosenRole
