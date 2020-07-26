@@ -31,5 +31,6 @@ function checkAddRole(client, collection) {
       }
     })
   })
+}
 
 module.exports = checkAddRole
