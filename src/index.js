@@ -29,7 +29,7 @@ for (const file of commandFiles) {
 }
 
 client.once('ready', () => {
-  console.log('info', 'The bot is online')
+  console.log('aight let\'s do this')
 });
 
 client.on('ready', () => {
