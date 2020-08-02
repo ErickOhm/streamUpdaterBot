@@ -1,14 +1,14 @@
 <h1 align="center">Welcome to streamUpdaterBot 👋</h1>
 <p>
-  <img alt="Version" src="https://img.shields.io/badge/version-0.9.0-blue.svg?cacheSeconds=2592000" />
+  <img alt="Version" src="https://img.shields.io/badge/version-0.9.0-blue.svg?cacheSeconds=2592000&style=flat-square" />
   <a href="https://github.com/erickmack/streamUpdaterBot#readme" target="_blank">
-    <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
+    <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg?style=flat-square" />
   </a>
   <a href="https://github.com/erickmack/streamUpdaterBot/graphs/commit-activity" target="_blank">
-    <img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" />
+    <img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg?style=flat-square" />
   </a>
   <a href="https://github.com/erickmack/streamUpdaterBot/blob/master/LICENSE" target="_blank">
-    <img alt="License: GNU GPLv3" src="https://img.shields.io/github/license/erickmack/streamUpdaterBot" />
+    <img alt="License: GNU GPLv3" src="https://img.shields.io/github/license/erickmack/streamUpdaterBot?style=flat-square" />
   </a>
   <a href="https://twitter.com/eriickmack" target="_blank">
     <img alt="Twitter: eriickmack" src="https://img.shields.io/twitter/follow/eriickmack.svg?style=social" />
