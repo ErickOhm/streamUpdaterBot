@@ -1,6 +1,7 @@
 const getStreams = require('../TwitchFetch/getStreams')
 const getImg = require('../TwitchFetch/getStreamerThumbnail')
 const getGameName = require('../TwitchFetch/getGameName')
+const getLogin = require('../TwitchFetch/getUserID')
 const Discord = require('discord.js')
 
 module.exports = function (client,collection) {
@@ -57,13 +58,14 @@ async function sendStreamer(data, client, channelID, collection, ID) {
   let thumbnailwidth = data.thumbnail_url.replace('{width}', '320')
   let thumbnail = thumbnailwidth.replace('{height}', '180')
   let imagePromise = getImg(data.user_id)
+  let userLogin = await getLogin(data.user_id)
   let gameID = data.game_id
   let gameName = await getGameName(gameID)
   imagePromise.then(function (img) {
     const streamerEmbed = new Discord.MessageEmbed()
       .setColor('#8e44ad')
       .setTitle(`${data.title}`)
-      .setURL(`https://twitch.tv/${data.user_name}`)
+      .setURL(`https://twitch.tv/${userLogin}`)
       .setAuthor(data.user_name, img, `https://twitch.tv/${data.user_name}`)
       .setThumbnail(img)
       .addFields({ name: 'Playing', value: gameName, inline: true }, { name: 'Language', value: data.language, inline: true }, { name: 'Viewers', value: data.viewer_count })
