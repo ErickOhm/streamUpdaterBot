@@ -1,7 +1,7 @@
 const getStreams = require('../TwitchFetch/getStreams')
 const getImg = require('../TwitchFetch/getStreamerThumbnail')
 const getGameName = require('../TwitchFetch/getGameName')
-const getLogin = require('../TwitchFetch/getUserID')
+const getLogin = require('../TwitchFetch/getStreamerInfo')
 const Discord = require('discord.js')
 
 module.exports = function (client,collection) {
