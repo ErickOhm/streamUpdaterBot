@@ -1,5 +1,5 @@
 module.exports = {
-  name: 'streamingRole',
+  name: 'streaming',
   description: 'Setup an automatic role update for people streaming',
   usage: '!streaming',
   aliases: ['roles','streaming'],
