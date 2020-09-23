@@ -20,6 +20,7 @@ function checkAddRole(client, collection) {
               if(activity.type === 'STREAMING'){
                 let member = guild.members.cache.find(m => { return m.user.id === user.userID })
                if(Filter &&(Filter === activity.state)){
+                 console.log('Why you no work?', member)
                  member.roles.add(guildRole)
                } else if(!Filter){
                  member.roles.add(guildRole)
