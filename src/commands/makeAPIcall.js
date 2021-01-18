@@ -15,6 +15,8 @@ module.exports = {
             let error = JSON.stringify(res.error)
             if(error.length > 200) {
                 message.channel.send(error.split('',200).join('')) 
+            } else {
+                message.channel.send(error)
             }
           return res.error;
         }
