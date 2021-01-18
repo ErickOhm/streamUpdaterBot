@@ -12,16 +12,22 @@ module.exports = {
     let req = unirest("GET", URL)
       .then(function (res) {
         if (res.error) {
-            console.error(res.error)
+            let error = JSON.stringify(res.error)
+            if(error.length > 200) {
+                message.channel.send(error.split('',200).join('')) 
+            }
           return res.error;
         }
         let parsed = JSON.parse(res.raw_body);
-        console.log(parsed)
+        let txt = JSON.stringify(parsed)
+        if(txt.length > 500){
+            txt = txt.split('',500).join('')
+        }
         message.channel.send('making the API call...')
         const result = new Discord.MessageEmbed()
           .setColor('#f1c40f')
           .setTitle(`Called made successfully`)
-          .setDescription(JSON.stringify(parsed))
+          .setDescription(txt)
         try {
           message.channel.send(result)
         } catch (error) {
