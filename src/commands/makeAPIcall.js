@@ -15,6 +15,7 @@ module.exports = {
         }
         let parsed = JSON.parse(res.raw_body);
         console.log(parsed)
+        message.channel.send('making the API call...')
         const result = new Discord.MessageEmbed()
           .setColor('#f1c40f')
           .setTitle(`Called made successfully`)
