@@ -6,7 +6,7 @@ module.exports = {
   description: "call an api endpoint",
   usage: "!call <endpoint>",
   execute(message, args, client) {
-    if (message.author.id !== process.env.CREATOR_ID) return;
+    //if (message.author.id !== process.env.CREATOR_ID) return;
     const URL = args[0] ? args[0] : 'https://jstris.jezevec10.com/api/u/Erickmack/records/1?mode=1&best';
     console.log(args,'arguments')
     let req = unirest("GET", URL)
