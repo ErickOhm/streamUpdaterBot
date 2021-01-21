@@ -5,7 +5,7 @@ const Discord = require('discord.js');
 module.exports = {
   name: 'channelUpdate',
   description: 'Change the channel where you want the bot to send updates (call this command in the new channel)',
-  aliases: ['channel'],
+  aliases: ['channel','channelUpdate'],
   usage: '!channel',
   args: false,
   cooldown: 5,

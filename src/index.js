@@ -5,6 +5,7 @@ const cron = require("node-cron");
 const categoryUpdate = require("./streamUpdate/categoryUpdate");
 const favoritesUpdate = require("./streamUpdate/favoritesUpdate");
 const checkRemoveRole = require("./streamUpdate/checkRemoveRole");
+const streamNotifications = require('./streamUpdate/notificationsUpdate')
 const checkAddRole = require("./streamUpdate/checkAddRole");
 const roleUpdate = require("./streamUpdate/roleUpdate");
 
@@ -43,6 +44,9 @@ client.on("ready", () => {
     });
     cron.schedule("*/1 * * * *", () => {
         favoritesUpdate(client, collection);
+    });
+    cron.schedule("*/1 * * * *", () => {
+        streamNotifications(client, collection);
     });
 });
 
