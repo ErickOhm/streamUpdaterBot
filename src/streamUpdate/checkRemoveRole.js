@@ -20,7 +20,6 @@ function checkRole(client,collection) {
           })
           if(isStreaming === false){
             member.roles.remove(guildRole)
-            console.log(member.roles)
             console.log(member.user.username)
           }
           if(Filter && (game !== Filter)){
