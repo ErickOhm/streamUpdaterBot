@@ -37,8 +37,8 @@ client.once("ready", () => {
 
 client.on("ready", () => {
     client.user.setActivity("!help");
-    checkRemoveRole(client, collection);
     checkAddRole(client, collection);
+    checkRemoveRole(client, collection);
     cron.schedule("*/2 * * * *", () => {
         categoryUpdate(client, collection);
     });
