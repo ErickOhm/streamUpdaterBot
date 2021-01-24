@@ -18,13 +18,14 @@ function checkRole(client,collection) {
               game = activity.state
             }
           })
+          if(isStreaming === false){
+            member.roles.remove(guildRole)
+          }
           if(Filter && (game !== Filter)){
             // remove role
             member.roles.remove(guildRole)
           } else if (!Filter && (isStreaming === false)){
             //remove role
-            member.roles.remove(guildRole)
-          } else if (!isStreaming){
             member.roles.remove(guildRole)
           }
         })
