@@ -21,7 +21,7 @@ function checkRole(client,collection) {
           if(isStreaming === false){
             member.roles.remove(guildRole)
             console.log(member.user.username)
-            console.log(member.roles.cache,find('name','Now Live'))
+            console.log(member.roles.cache,find(role => role.name === guildRole))
           }
           if(Filter && (game !== Filter)){
             // remove role
