@@ -2,6 +2,7 @@
 function checkRole(client,collection) {
   collection.find({}).then(async (res) => {
     res.forEach(server => {
+      console.log('works')
       let serverID = server.ServerID
       let roleName = server.ChosenRole ? server.ChosenRole : 'no_role'
       if (roleName !== 'no_role') {
@@ -20,6 +21,7 @@ function checkRole(client,collection) {
           })
           if(isStreaming === false){
             member.roles.remove(guildRole)
+            console.log('Im here')
           }
           if(Filter && (game !== Filter)){
             // remove role
