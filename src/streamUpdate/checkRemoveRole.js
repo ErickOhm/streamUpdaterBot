@@ -24,6 +24,8 @@ function checkRole(client,collection) {
           } else if (!Filter && (isStreaming === false)){
             //remove role
             member.roles.remove(guildRole)
+          } else if (!isStreaming){
+            member.roles.remove(guildRole)
           }
         })
       }
