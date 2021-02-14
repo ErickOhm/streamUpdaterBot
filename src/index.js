@@ -2,6 +2,7 @@ const fs = require("fs");
 const Discord = require("discord.js");
 const cron = require("node-cron");
 // Functions to call
+const db = require("monk")(process.env.DB_URI);
 const categoryUpdate = require("./streamUpdate/categoryUpdate");
 const favoritesUpdate = require("./streamUpdate/favoritesUpdate");
 const notificationsUpdate = require("./streamUpdate/notificationsUpdate");
@@ -14,7 +15,7 @@ const cooldowns = new Discord.Collection();
 require("dotenv").config();
 
 // connect to database
-const db = require("monk")(process.env.DB_URI);
+
 const collection = db.get("document");
 
 const prefix = process.env.PREFIX;
