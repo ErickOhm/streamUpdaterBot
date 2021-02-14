@@ -5,9 +5,10 @@ const getGameName = require('../TwitchFetch/getGameName');
 
 module.exports = function (client, collection) {
   collection.find({}).then(async (res) => {
-    console.log('in the function')
+    console.log(res)
     for (let i = 0; i < res.length; i++) {
       const Notifications = res[i].Notifications;
+      console.log('no notif?',Notifications)
       if(!Notifications){return}
       console.log('has notifications')
       const channelID = Notifications.channel;
