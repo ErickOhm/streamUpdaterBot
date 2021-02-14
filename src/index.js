@@ -4,8 +4,8 @@ const cron = require("node-cron");
 // Functions to call
 const categoryUpdate = require("./streamUpdate/categoryUpdate");
 const favoritesUpdate = require("./streamUpdate/favoritesUpdate");
+const notificationsUpdate = require("./streamUpdate/notificationsUpdate");
 const checkRemoveRole = require("./streamUpdate/checkRemoveRole");
-const streamNotifications = require('./streamUpdate/notificationsUpdate')
 const checkAddRole = require("./streamUpdate/checkAddRole");
 const roleUpdate = require("./streamUpdate/roleUpdate");
 
@@ -23,102 +23,99 @@ const client = new Discord.Client();
 client.commands = new Discord.Collection();
 
 const commandFiles = fs
-    .readdirSync("./src/commands")
-    .filter((file) => file.endsWith(".js"));
+  .readdirSync("./src/commands")
+  .filter((file) => file.endsWith(".js"));
 
 for (const file of commandFiles) {
-    const command = require(`./commands/${file}`);
-    client.commands.set(command.name, command);
+  const command = require(`./commands/${file}`);
+  client.commands.set(command.name, command);
 }
 
 client.once("ready", () => {
-    console.log("aight let's do this");
+  console.log("aight let's do this");
 });
 
 client.on("ready", () => {
-    client.user.setActivity("!help");
-    checkAddRole(client, collection);
-    checkRemoveRole(client, collection);
-    cron.schedule("*/2 * * * *", () => {
-        categoryUpdate(client, collection);
-    });
-    cron.schedule("*/1 * * * *", () => {
-        favoritesUpdate(client, collection);
-    });
-    cron.schedule("*/1 * * * *", () => {
-        streamNotifications(client, collection);
-    });
+  client.user.setActivity("!help");
+  checkAddRole(client, collection);
+  checkRemoveRole(client, collection);
+  cron.schedule("*/2 * * * *", () => {
+    categoryUpdate(client, collection);
+  });
+  cron.schedule("*/1 * * * *", () => {
+    favoritesUpdate(client, collection);
+  });
+  cron.schedule("*/1 * * * *", () => {
+    notificationsUpdate(client, collection);
+  });
 });
 
 client.on("message", (message) => {
-    if (!message.content.startsWith(prefix) || message.author.bot) return;
-    if (
-        message.guild.member(message.author).hasPermission("ADMINISTRATOR") ||
-        message.author.id === process.env.CREATOR_ID
-    ) {
-        const args = message.content.slice(prefix.length).split(/ +/);
-        const commandName = args.shift().toLowerCase();
-        const command =
-            client.commands.get(commandName) ||
-            client.commands.find(
-                (cmd) => cmd.aliases && cmd.aliases.includes(commandName)
-            );
+  if (!message.content.startsWith(prefix) || message.author.bot) return;
+  if (
+    message.guild.member(message.author).hasPermission("ADMINISTRATOR") ||
+    message.author.id === process.env.CREATOR_ID
+  ) {
+    const args = message.content.slice(prefix.length).split(/ +/);
+    const commandName = args.shift().toLowerCase();
+    const command =
+      client.commands.get(commandName) ||
+      client.commands.find(
+        (cmd) => cmd.aliases && cmd.aliases.includes(commandName)
+      );
 
-        if (!command) return;
-        if (command.args && !args.length) {
-            let reply = `You didn't provide any arguments, ${message.author}!`;
-            if (command.usage) {
-                reply += `\nThe proper usage would be: \`${command.usage}\``;
-            }
+    if (!command) return;
+    if (command.args && !args.length) {
+      let reply = `You didn't provide any arguments, ${message.author}!`;
+      if (command.usage) {
+        reply += `\nThe proper usage would be: \`${command.usage}\``;
+      }
 
-            try {
-                return message.channel.send(reply);
-            } catch (error) {
-                console.error(error, message.channel);
-            }
-        }
-
-        if (!cooldowns.has(command.name)) {
-            cooldowns.set(command.name, new Discord.Collection());
-        }
-
-        const now = Date.now();
-        const timestamps = cooldowns.get(command.name);
-        const cooldownAmount = (command.cooldown || 3) * 1000;
-
-        if (timestamps.has(message.author.id)) {
-            const expirationTime =
-                timestamps.get(message.author.id) + cooldownAmount;
-
-            if (now < expirationTime) {
-                const timeLeft = (expirationTime - now) / 1000;
-                try {
-                    return message.reply(
-                        `please wait ${timeLeft.toFixed(
-                            1
-                        )} more second(s) before reusing the \`${
-                            command.name
-                        }\` command.`
-                    );
-                } catch (error) {
-                    console.error(error, message.channel);
-                }
-            }
-        }
-        timestamps.set(message.author.id, now);
-        setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
-
-        try {
-            command.execute(message, args, client, collection);
-        } catch (error) {
-            console.error(error);
-            message.reply("there was an error trying to execute that command!");
-        }
+      try {
+        return message.channel.send(reply);
+      } catch (error) {
+        console.error(error, message.channel);
+      }
     }
+
+    if (!cooldowns.has(command.name)) {
+      cooldowns.set(command.name, new Discord.Collection());
+    }
+
+    const now = Date.now();
+    const timestamps = cooldowns.get(command.name);
+    const cooldownAmount = (command.cooldown || 3) * 1000;
+
+    if (timestamps.has(message.author.id)) {
+      const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
+
+      if (now < expirationTime) {
+        const timeLeft = (expirationTime - now) / 1000;
+        try {
+          return message.reply(
+            `please wait ${timeLeft.toFixed(
+              1
+            )} more second(s) before reusing the \`${command.name}\` command.`
+          );
+        } catch (error) {
+          console.error(error, message.channel);
+        }
+      }
+    }
+    timestamps.set(message.author.id, now);
+    setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
+
+    try {
+      command.execute(message, args, client, collection);
+    } catch (error) {
+      console.error(error);
+      message.reply("there was an error trying to execute that command!");
+    }
+  }
 });
 
 client.on("presenceUpdate", (prevState, newState) => {
-    roleUpdate(prevState, newState, client, collection);
+  roleUpdate(prevState, newState, client, collection);
 });
 
 client.login(process.env.BOT_TOKEN);
