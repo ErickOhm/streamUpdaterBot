@@ -5,18 +5,14 @@ const getGameName = require('../TwitchFetch/getGameName');
 
 module.exports = function (client, collection) {
   collection.find({}).then(async (res) => {
-    console.log(res)
     for (let i = 0; i < res.length; i++) {
       const Notifications = res[i].Notifications;
-      console.log('no notif?',Notifications)
-      if(!Notifications){return}
-      console.log('has notifications')
+      if(!Notifications){continue}
       const channelID = Notifications.channel;
       const customMsg = Notifications.message;
       const NotificationsID = [Notifications.ID];
       const streamers = await getStreamers(NotificationsID);
       if (!streamers) continue;
-      console.log('streamers yay')
       if (streamers.data.length > 0) {
           const tempData = streamers.data.filter((streamer) => streamer.user_id === Notifications.ID);
           if (tempData.length) {
