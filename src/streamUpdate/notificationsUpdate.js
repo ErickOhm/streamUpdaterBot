@@ -17,7 +17,6 @@ module.exports = function (client, collection) {
           const tempData = streamers.data.filter((streamer) => streamer.user_id === Notifications.ID);
           if (tempData.length) {
             if (Notifications.wasOnline == false) {
-              console.log('was online yay')
               sendStreamer(tempData[0], client, channelID, collection, res[i].ServerID, Notifications.ID,customMsg);
             }
           } else if (!tempData.length) {
