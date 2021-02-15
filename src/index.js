@@ -1,6 +1,7 @@
 const fs = require("fs");
 const Discord = require("discord.js");
 const cron = require("node-cron");
+require("dotenv").config();
 // Functions to call
 const db = require("monk")(process.env.DB_URI);
 const categoryUpdate = require("./streamUpdate/categoryUpdate");
@@ -11,8 +12,6 @@ const checkAddRole = require("./streamUpdate/checkAddRole");
 const roleUpdate = require("./streamUpdate/roleUpdate");
 
 const cooldowns = new Discord.Collection();
-
-require("dotenv").config();
 
 // connect to database
 
