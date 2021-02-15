@@ -1,11 +1,10 @@
 const Discord = require("discord.js");
 const getUserID = require("../TwitchFetch/getUserID");
 const getUsers = require("../TwitchFetch/getUsers");
-const channel = require("./channel");
 
 module.exports = {
-  name: "streamNotif",
-  description: "set up stream notifications for yourself with a custom message",
+  name: "notifications",
+  description: "Setup stream notifications for yourself",
   aliases: ["notifications", "streamNotif", "notif"],
   usage: "!notif <twitch name> <message>",
   args: true,
@@ -14,7 +13,10 @@ module.exports = {
     let channelID = message.channel.id;
     let serverID = message.guild.id;
     let twitchName = args[0];
-    if (twitchName.toLowerCase() === "edit" || twitchName.toLowerCase() === 'update') {
+    if (
+      twitchName.toLowerCase() === "edit" ||
+      twitchName.toLowerCase() === "update"
+    ) {
       message.channel
         .send(
           "What would you like to edit? type **user** to edit Twitch Username, **message** to update your custom message or **channel** to update the channel for updates"
@@ -53,7 +55,7 @@ module.exports = {
                         });
                     });
                   break;
-                  case "message":
+                case "message":
                   message.channel
                     .send("What would be the new message?")
                     .then(() => {
@@ -70,17 +72,21 @@ module.exports = {
                             { ServerID: message.guild.id },
                             {
                               $set: {
-                                "Notifications.message": userMsg
+                                "Notifications.message": userMsg,
                               },
                             }
                           );
-                          message.channel.send(`Updated the message successfully`);
+                          message.channel.send(
+                            `Updated the message successfully`
+                          );
                         });
                     });
                   break;
-                  case "channel":
+                case "channel":
                   message.channel
-                    .send("Enter the channel ID where you want the bot to post updates")
+                    .send(
+                      "Enter the channel ID where you want the bot to post updates"
+                    )
                     .then(() => {
                       const filter = (m) => message.author.id === m.author.id;
                       message.channel
@@ -95,11 +101,13 @@ module.exports = {
                             { ServerID: message.guild.id },
                             {
                               $set: {
-                                "Notifications.channel": channelID
+                                "Notifications.channel": channelID,
                               },
                             }
                           );
-                          message.channel.send(`Updated the channel to <#${channelID}>`);
+                          message.channel.send(
+                            `Updated the channel to <#${channelID}>`
+                          );
                         });
                     });
                   break;

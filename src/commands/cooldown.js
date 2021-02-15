@@ -4,7 +4,7 @@ module.exports = {
   name: 'cooldownUpdate',
   description: 'Set the time between stream category updates',
   usage: '!cooldown <time in minutes>',
-  aliases: ['cooldown'],
+  aliases: ['cooldown','cd'],
   args: true,
   cooldown: 5,
   execute(message, args,client,collection) {

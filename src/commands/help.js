@@ -1,50 +1,83 @@
-const Discord = require('discord.js')
-require('dotenv').config();
+const Discord = require("discord.js");
+require("dotenv").config();
 
 const prefix = process.env.PREFIX;
 
-
 module.exports = {
-  name: 'help',
-  description: 'List all of my commands or info about a specific command.',
-  aliases: ['commands'],
-  usage: '!help <command name>',
+  name: "help",
+  description: "List all of my commands or info about a specific command.",
+  aliases: ["commands", "tasukete"],
+  usage: "!help <command name>",
   cooldown: 5,
   execute(message, args) {
     const { commands } = message.client;
-
+    let avoidCommand = [
+      "help",
+      "dag",
+      "call",
+      "ping",
+      "stats",
+      "echo",
+      "stream",
+      "test",
+    ];
     const helpEmbed = new Discord.MessageEmbed()
-      .setColor('#3498db')
-      .setTitle('Help')
-      .setDescription('Here\'s a list of all my commands:')
-      .addFields({ name: 'Command names:', value: `${commands.map((command) => `\`${command.name}\``).join(', ')}` }, { name: 'More info:', value: `\nYou can send \`${prefix}help <command name>\` to get info on a specific command!` })
-
+      .setColor("#3498db")
+      .setTitle("Help")
+      .setDescription('***If you just added the bot make sure to run `!config` before any other commands***')
+      .addFields(
+        {
+          name: "Commands:",
+          value: `${commands
+            .map((command) => {
+              if (avoidCommand.indexOf(command.name) < 0) {
+                return `**${command.name}:**
+                  ${command.description}
+                  `;
+              }
+            })
+            .join(" ")}`,
+        },
+        {
+          name: "More info:",
+          value: `\nYou can send \`${prefix}help <command name>\` to get info on a specific command!`,
+        }
+      );
 
     if (!args.length) {
       try {
-        return message.channel.send(helpEmbed)
+        return message.channel.send(helpEmbed);
       } catch (error) {
-        console.error(error, message.channel)
+        console.error(error, message.channel);
       }
-
     }
     const name = args[0].toLowerCase();
-    const command = commands.get(name) || commands.find((c) => c.aliases && c.aliases.includes(name));
+    const command =
+      commands.get(name) ||
+      commands.find((c) => c.aliases && c.aliases.includes(name));
 
     if (!command) {
-      return message.reply('that\'s not a valid command!');
+      return message.reply("that's not a valid command!");
     }
 
     const moreInfoEmbed = new Discord.MessageEmbed()
-      .setColor('#0984e3')
+      .setColor("#0984e3")
       .setTitle(command.name.toUpperCase())
       .setDescription(command.description)
-      .addFields({ name: 'Aliases', value: `${command.aliases ? command.aliases.join(', ') : 'No aliases'}` }, { name: 'Usage', value: command.usage }, { name: 'Cooldown', value: `${command.cooldown || 3} second(s)` })
+      .addFields(
+        {
+          name: "Aliases",
+          value: `${
+            command.aliases ? command.aliases.join(", ") : "No aliases"
+          }`,
+        },
+        { name: "Usage", value: command.usage },
+        { name: "Cooldown", value: `${command.cooldown || 3} second(s)` }
+      );
     try {
       message.channel.send(moreInfoEmbed);
     } catch (error) {
-      console.error(error, message.channel)
+      console.error(error, message.channel);
     }
-
   },
 };

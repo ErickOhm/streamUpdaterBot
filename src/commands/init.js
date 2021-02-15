@@ -3,7 +3,7 @@ const Discord = require('discord.js');
 
 module.exports = {
   name: 'config',
-  description: 'Initialize the bot with your preferences (do this command in the channel you want the bot to send updates)',
+  description: 'Initialize the bot with your preferences',
   args: false,
   aliases: ['start', 'init'],
   usage: '!init',
