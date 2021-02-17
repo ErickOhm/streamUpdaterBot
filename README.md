@@ -15,7 +15,7 @@
   </a>
 </p>
 
-> With Twitch Live you can get stream notifications from your favorite streamers, a specific stream category you choose or your own stream, you can also setup the bot to give a role to people streaming with the option to only give the role to people streaming a specific category. Made with NodeJS and MongoDB
+> With Twitch Live you can get stream notifications from your favorite streamers, a specific stream category you choose, or your own stream, you can also setup the bot to give a role to people streaming with the option to only give the role to people streaming a specific category. Made with NodeJS and MongoDB
 
 ### 🏠 [Homepage](https://github.com/erickmack/streamUpdaterBot)
 
