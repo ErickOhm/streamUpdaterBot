@@ -18,9 +18,9 @@ module.exports = function (client, collection) {
           if (tempData.length) {
             if (Notifications.wasOnline == false) {
               sendStreamer(tempData[0], client, channelID, collection, res[i].ServerID, Notifications.ID,customMsg);
-            }
+            } 
           } else if (!tempData.length) {
-            collection.update({ ServerID: res[i].ServerID}, { $set: { 'Notifications.wasOnline': false } });
+						collection.update({ ServerID: res[i].ServerID}, { $set: { 'Notifications.wasOnline': false } });
           }
       }
     }
