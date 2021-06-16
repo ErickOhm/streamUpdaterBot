@@ -6,6 +6,7 @@ function checkRole(client,collection) {
       let roleName = server.ChosenRole ? server.ChosenRole : 'no_role'
       if (roleName !== 'no_role') {
         let Filter = server.Filter === 'none' ? false : server.Filter
+				const Filters = Filter.split(",");
         let guild = client.guilds.cache.find(guild => guild.id === serverID)
         let guildRole = guild.roles.cache.find(role => role.name === roleName)
         if(!guildRole) return
@@ -21,7 +22,7 @@ function checkRole(client,collection) {
           if(!isStreaming){
             member.roles.remove(guildRole)
           }
-          if(Filter && (game !== Filter)){
+          if(Filter && (!Filters.includes(game))){
             // remove role
             member.roles.remove(guildRole)
           } else if (!Filter && (!isStreaming)){

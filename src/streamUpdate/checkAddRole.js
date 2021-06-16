@@ -11,6 +11,7 @@ function checkAddRole(client, collection) {
       let roleName = server.ChosenRole ? server.ChosenRole : false
       if (roleName) {
         let Filter = server.Filter === 'none' ? false : server.Filter
+				const Filters = Filter.split(",");
         let guild = client.guilds.cache.find(guild => guild.id === serverID)
         let guildRole = guild.roles.cache.find(role => role.name === roleName)
         if(!guildRole) return
@@ -19,7 +20,7 @@ function checkAddRole(client, collection) {
             user.activities.forEach(activity => {
               if(activity.type === 'STREAMING'){
                 let member = guild.members.cache.find(m => { return m.user.id === user.userID })
-               if(Filter &&(Filter === activity.state)){
+               if(Filter &&(Filters.includes(activity.state))){
                  member.roles.add(guildRole)
                } else if(!Filter){
                  member.roles.add(guildRole)
