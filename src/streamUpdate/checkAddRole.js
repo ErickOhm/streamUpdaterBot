@@ -11,7 +11,10 @@ function checkAddRole(client, collection) {
       let roleName = server.ChosenRole ? server.ChosenRole : false
       if (roleName) {
         let Filter = server.Filter === 'none' ? false : server.Filter
-				const Filters = Filter.split(",");
+				let Filters;
+				if(Filter){
+					Filters = Filter.split(",");
+				}
         let guild = client.guilds.cache.find(guild => guild.id === serverID)
         let guildRole = guild.roles.cache.find(role => role.name === roleName)
         if(!guildRole) return
